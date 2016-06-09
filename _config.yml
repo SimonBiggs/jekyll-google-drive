@@ -14,7 +14,7 @@ title: 'Church of Christ'
 slogan: 'Growing together In Christ to impact our world'
 
 # The description is used on homepage and in the footer to quickly describe your website. Use a maximum of 150 characters for SEO-purposes.
-description: 'This is the webpage for Wagga Wagga Church of Christ. We meet at 9:45 am every Sunday at [62, Heath St, Turvey Park NSW 2650](https://goo.gl/maps/iPPbyEdZCoP2). The office contact number is (02) 6925 5661.'
+description: 'Wagga Wagga Church of Christ meets at 9:45 am Sunday at <a href="https://goo.gl/maps/iPPbyEdZCoP2">62 Heath St, Turvey Park NSW</a>'
 
 # The credits show up in the includes/_footer.html – It would be nice of you to leave a link to Phlow or Feeling Responsive as a thank you :)
 credits: '<p>Created by <a href="http://simonbiggs.net/">Simon Biggs</a> with <a href="http://jekyllrb.com/" target="_blank">Jekyll</a> based on <a href="http://phlow.github.io/feeling-responsive/">Feeling Responsive</a>.</p>'
