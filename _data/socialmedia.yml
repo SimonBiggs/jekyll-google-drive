@@ -23,10 +23,10 @@
   class: icon-googleplus
   title: "Google+"
 
-# - name: Facebook
-#   url: http://www.facebook.com/
-#   class: icon-facebook
-#   title: ""
+ - name: Facebook
+   url: https://www.facebook.com/MeshachBlue
+   class: icon-facebook
+   title: "Facebook"
 
 # - name: Soundcloud
 #   url: http://soundcloud.com/
