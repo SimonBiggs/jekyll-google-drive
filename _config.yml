@@ -39,7 +39,7 @@ improve_content: https://github.com/SimonBiggs/jekyll-google-drive/edit/gh-pages
 # Markdown-Example for posts ![Image Text]({{ site.urlimg }}image.jpg)
 #
 # Consider updating this to the google drive public folder
-urlimg: 'http://www.simonbiggs.net/jekyll-google-drive/images'
+urlimg: 'http://www.simonbiggs.net/jekyll-google-drive/images/'
 
 
 # Logo size is 600x80 pixels
