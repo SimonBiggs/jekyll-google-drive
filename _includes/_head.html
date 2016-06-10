@@ -81,18 +81,11 @@
 	
 	{% if page.googlesheetpull == true %}
 	<script type="text/javascript">
-	    var layout_data = null;
-	    var layout_html = null;
-	    
-		var content_data = null;
-		var fill_class = [];
-		var fill_text = [];
-		
+	    var layout_html = null;		
 		function load_layout_data(json) {
-		    layout_data_list = json.feed.entry;
-		    
-		    var record_next = false;
-		    
+		    var layout_data_list = json.feed.entry;		
+		        
+		    var record_next = false;		    
 		    $.each(layout_data_list, function ( index, layout_data ) {
 		        var cell = layout_data["gs$cell"];
 		        var cell_contents = cell["$t"];
@@ -108,19 +101,22 @@
 		    });	    
 		}
 		
+		var obj_class_list = [];
+		var html_list = [];		
 		function load_content_data(json) {
-			content_data = json.feed.entry;
+			var content_data_list = json.feed.entry;
 			
-			for(var i=0; i<content_data.length; i++) {
-				var cell = content_data[i]["gs$cell"];
-				var val = cell["$t"];
-				
+			$.each(content_data_list, function ( index, content_data ) {
+				var cell = content_data["gs$cell"];
+				var cell_contents = cell["$t"];
+								
 				if (cell.row == 1) {
-					fill_class.push(val);
-				} else if (cell.row == 2) {
-					fill_text.push(val);
+					obj_class_list.push(cell_contents);
 				}		
-			}
+				if (cell.row == 2) {
+					html_list.push(cell_contents);
+				}		
+			});
 		}
 		
 		function write_layout() {
@@ -129,12 +125,12 @@
 		}
 		
 		function write_content() {
-			for(var i=0; i<fill_class.length; i++) {
-				var parent = $("." + fill_class[i]);
+		    $.each(obj_class_list, function ( index, obj_class ) {
+				var parent = $("." + obj_class);
 				if (parent.length > 0) {
-					parent.append(fill_text[i]);
+					parent.append(html_list[index]);
 				}
-			}
+			});
 		}
 		
 		$(document).ready(function(){
@@ -143,8 +139,8 @@
 		});
 	
 	</script>
-	<script src="https://spreadsheets.google.com/feeds/cells/1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU/2/public/values?alt=json-in-script&callback=load_layout_data"></script>
-	<script src="https://spreadsheets.google.com/feeds/cells/1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU/1/public/values?alt=json-in-script&callback=load_content_data"></script>
+	<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_layout_id }}/public/values?alt=json-in-script&callback=load_layout_data"></script>
+	<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_contents_id }}/public/values?alt=json-in-script&callback=load_content_data"></script>
     {% endif %}
 
 	{% include _favicon.html %}

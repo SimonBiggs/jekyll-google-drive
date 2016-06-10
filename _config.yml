@@ -10,7 +10,7 @@
 # Title of your website
 title: 'Wagga Wagga Church of Christ'
 
-smalltitle: 'Church of Christ'
+small_title: 'Church of Christ'
 
 # The slogan describes your website and is used on homepage in <title> and other important places
 slogan: 'Growing together in Christ to impact our world'
@@ -29,6 +29,9 @@ author: SimonBiggs
 #
 url: 'http://churchsitedemo.simonbiggs.net'
 baseurl: ''
+
+google_sheet_layout_id : '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU/2'
+google_sheet_contents_id: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU/1'
 
 # This is for the editing function in _/includes/improve_content
 # Leave it empty if your site is not on GitHub/GitHub Pages
