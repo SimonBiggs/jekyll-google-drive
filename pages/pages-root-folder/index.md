@@ -6,7 +6,7 @@
 #
 layout: frontpage
 header:
-  image_fullwidth: https://images.unsplash.com/photo-1445067079117-f067dc20f011?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=502912a89bd566f17025ea9b8a610856
+  image_fullwidth: waggachurchofchristfamily.jpg
 widget1:
   title: "Blog & Portfolio"
   url: 'http://phlow.github.io/feeling-responsive/blog/'
