@@ -7,6 +7,7 @@ title: "Come visit us"
 header:
    image_fullwidth: "unsplash-coffee.jpg"
 permalink: "/visit/"
+breadcrumb: true
 googlesheetpull: true
 googlesheetlayout: visit
 ---
