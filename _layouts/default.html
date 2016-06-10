@@ -10,6 +10,10 @@ layout: compress
 	{% unless page.skip_boilerplate %}
 	{% include _navigation.html %}
 	{% endunless %}
+	
+	{% if page.breadcrumb == true %}
+    {% include _breadcrumb.html %}
+    {% endif %}
 
 	{% include _masthead.html %}
 	{{ content }}
