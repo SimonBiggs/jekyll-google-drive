@@ -7,7 +7,7 @@ homepage: true
 googlesheetpull: true
 ---
 
-</div class="row t60">
+<div class="row t60">
     <div class="medium-6 columns flex-video"></div>
         <a href="#" data-reveal-id="videoModal">
             <img src="images/video-modal.png" width="500" height="281" alt=""/>
