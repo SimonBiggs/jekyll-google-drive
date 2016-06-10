@@ -4,11 +4,15 @@
 
 - title: Visit
   url: "/visit/"
-  side: left
+  side: right
+  
+- title: "Contact"
+  url: "/contact/"
+  side: right
 
 - title: "About"
   url: "/about/"
-  side: left
+  side: right
   dropdown:
   - title: "What we believe"
     url: "/about/believe/"
@@ -17,7 +21,7 @@
 
 - title: "Sermons"
   url: "/sermons/"
-  side: left
+  side: right
 
 # - title: Blog
 #   url: "/blog/"
@@ -28,8 +32,4 @@
 
 - title: "Search"
   url: "/search/"
-  side: right
-
-- title: "Contact"
-  url: "/contact/"
   side: right
