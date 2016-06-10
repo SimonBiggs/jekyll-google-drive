@@ -2,25 +2,33 @@
 layout: frontpage
 header:
   image_fullwidth: waggachurchofchristfamily.jpg
-widget1:
-  title: "Greetings!"
-  url: '/info/'
-  text: 'Hi!!'
-  video: '<a href="#" data-reveal-id="videoModal"><img src="http://www.simonbiggs.net/jekyll-google-drive/images/video-modal.png" width="500" height="281" alt=""/></a>'
-widget2:
-  title: "Vist us"
-  url: '/blog/'
-  image: widget-1-302x182.jpg
-  text: 'Some text about visiting'
-widget3:
-  title: "Events coming up"
-  url: '/blog/'
-  image: widget-github-303x182.jpg
-  text: 'Some text about events'
-
 permalink: /index.html
 homepage: true
 ---
+<div class="row t60">
+    <div class="medium-4 columns">
+        <h2 class="font-size-h3 t10">Greetings!</h2>
+        
+        <a href="#" data-reveal-id="videoModal">
+            <img src="/images/video-modal.png" width="500" height="281" alt=""/>
+        </a>
+        
+        <p>Come visit us</p>
+        <p>Map goes here</p>
+    </div>
+
+    <div class="medium-4 columns">
+        <h2 class="font-size-h3 t10">Most recent sermons</h2>
+           
+        <p>An audio bar goes here</p>
+    </div>
+
+    <div class="medium-4 columns">
+        <h2 class="font-size-h3 t10">Events coming up</h2>
+           
+        <p>List of events goes here</p>
+    </div>
+</div>
 
 <div id="videoModal" class="reveal-modal large" data-reveal="">
   <div class="flex-video widescreen vimeo" style="display: block;">
