@@ -1,6 +1,5 @@
 ---
 layout: page
-show_meta: false
 title: "Sermons"
 # subheadline: "A Step-by-Step Guide"
 # teaser: "A teaser?"
