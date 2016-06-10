@@ -1,6 +1,5 @@
 ---
 layout: frontpage
-title: "Home"
 header:
   image_fullwidth: waggachurchofchristfamily.jpg
 permalink: /index.html
