@@ -95,7 +95,7 @@
 				var cell = layout_data[i]["gs$cell"];
 				var val = cell["$t"];
 				
-				if (cell.row == 1 && val == {{ page.googlesheetlayout }}) {
+				if (cell.row == 1 && val == "{{ page.googlesheetlayout }}") {
 					var find_column = cell.col;
 					break;
 				}
