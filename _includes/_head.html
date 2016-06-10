@@ -89,27 +89,23 @@
 		var fill_text = [];
 		
 		function load_layout_data(json) {
-		    layout_data = json.feed.entry;
+		    layout_data_list = json.feed.entry;
 		    
-		    for(var i=0; i<layout_data.length; i++) {
-				var cell = layout_data[i]["gs$cell"];
-				var val = cell["$t"];
-				
-				if (cell.row == 1 && val == "{{ page.googlesheetlayout }}") {
-					var find_column = cell.col;
-					break;
-				}
-			}
-			
-			for(var i=0; i<layout_data.length; i++) {
-				var cell = layout_data[i]["gs$cell"];
-				var val = cell["$t"];
-				
-				if (cell.row == 2 && cell.col == find_column) {
-					layout_html = val;
-					break;
-				}
-			}		    
+		    var record_next = false;
+		    
+		    $.each(layout_data_list, function ( index, layout_data ) {
+		        var cell = layout_data["gs$cell"];
+		        var cell_contents = cell["$t"];
+		        
+		        if (record_next) {
+		            layout_html = cell_contents;
+		            break;
+		        }
+		        
+		        if (cell_contents == "{{ page.googlesheetlayout }}") {
+		            record_next = true;
+		        }
+		    });	    
 		}
 		
 		function load_content_data(json) {
