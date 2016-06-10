@@ -19,6 +19,13 @@
   url: "/sermons/"
   side: left
 
+# - title: Blog
+#   url: "/blog/"
+#   side: left
+#   dropdown:
+#   - title: "Blog Archive"
+#     url: "/blog/archive/"
+
 - title: "Search"
   url: "/search/"
   side: right
