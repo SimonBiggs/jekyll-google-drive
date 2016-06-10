@@ -99,7 +99,7 @@
 		        
 		        if (record_next) {
 		            layout_html = cell_contents;
-		            break;
+		            return false;
 		        }
 		        
 		        if (cell_contents == "{{ page.googlesheetlayout }}") {
