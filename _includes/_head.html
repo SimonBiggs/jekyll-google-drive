@@ -75,6 +75,45 @@
 		<script src="{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js"></script>
 		<link rel="stylesheet" href="{{ url }}/assets/mediaelement_js/mediaelementplayer.min.css">
 	{% endif %}
+	
+	{% if page.googlesheetpull == true %}
+		<script type="text/javascript">
+		var sheet_data = null;
+		var fill_class = [];
+		var fill_text = [];
+		
+		var url = $(location).attr('href');
+		
+		function load_data(json) {
+			sheet_data = json.feed.entry;
+			
+			for(var i=0; i<sheet_data.length; i++) {
+				var cell = sheet_data[i]["gs$cell"];
+				var val = cell["$t"];
+				
+				if (cell.row == 1) {
+					fill_class.push(val);
+				} else if (cell.row == 2) {
+					fill_text.push(val);
+				}
+		
+			}
+		}
+		function write_data() {
+			for(var i=0; i<fill_class.length; i++) {
+				var parent = $("." + fill_class[i]);
+				if (parent.length > 0) {
+					parent.append(fill_text[i]);
+				}
+			}
+		}
+		$(document).ready(function(){
+			write_data();
+		});
+	
+	</script>
+	<script src="https://spreadsheets.google.com/feeds/cells/1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU/1/public/values?alt=json-in-script&callback=load_data"></script>
+    {% endif %}
 
 	{% include _favicon.html %}
 

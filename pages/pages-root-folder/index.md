@@ -4,6 +4,7 @@ header:
   image_fullwidth: waggachurchofchristfamily.jpg
 permalink: /index.html
 homepage: true
+googlesheetpull: true
 ---
 <div class="row t60">
     <div class="medium-4 columns">
@@ -13,8 +14,8 @@ homepage: true
             <img src="images/video-modal.png" width="500" height="281" alt=""/>
         </a>
         
-        <p>Come visit us</p>
-        <p>Map goes here</p>
+        <p class="welcome"></p>
+        <div class="flex-video embedded_map"></div>
     </div>
 
     <div class="medium-4 columns">
@@ -26,7 +27,7 @@ homepage: true
     <div class="medium-4 columns">
         <h2 class="font-size-h3 t10">Events coming up</h2>
            
-        <p>List of events goes here</p>
+        <p class="upcoming_events"></p>
     </div>
 </div>
 
