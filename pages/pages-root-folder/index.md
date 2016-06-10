@@ -10,7 +10,7 @@ homepage: true
         <h2 class="font-size-h3 t10">Greetings!</h2>
         
         <a href="#" data-reveal-id="videoModal">
-            <img src="/images/video-modal.png" width="500" height="281" alt=""/>
+            <img src="images/video-modal.png" width="500" height="281" alt=""/>
         </a>
         
         <p>Come visit us</p>
