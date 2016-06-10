@@ -5,16 +5,18 @@ header:
 homepage: true
 ---
 
-<div class="medium-4 columns">
-    TEST
-</div>
+<div class="row">
+    <div class="medium-4 columns">
+        words go here
+    </div>
 
 
-<div class="medium-4 columns">
-    TEST
-</div>
+    <div class="medium-4 columns">
+        words go here
+    </div>
 
 
-<div class="medium-4 columns">
-    TEST
+    <div class="medium-4 columns">
+        words go here
+    </div>
 </div>
