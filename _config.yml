@@ -31,7 +31,7 @@ url: 'http://churchsitedemo.simonbiggs.net'
 baseurl: ''
 
 google_sheet_layout_id : '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU/2'
-google_sheet_contents_id: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU/1'
+google_sheet_contents_id: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU/3'
 
 # This is for the editing function in _/includes/improve_content
 # Leave it empty if your site is not on GitHub/GitHub Pages
