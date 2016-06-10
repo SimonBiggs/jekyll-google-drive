@@ -8,10 +8,10 @@ layout: frontpage
 header:
   image_fullwidth: waggachurchofchristfamily.jpg
 widget1:
-  title: "Greetings!"
-  url: 'http://phlow.github.io/feeling-responsive/blog/'
+  title: "Come visit us!"
+  url: 'https://goo.gl/maps/iPPbyEdZCoP2'
   image: widget-1-302x182.jpg
-  text: 'Test greeting text'
+  text: 'Put map here?'
 widget2:
   title: "Welcome Video"
   url: 'http://phlow.github.io/feeling-responsive/info/'
