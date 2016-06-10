@@ -1,7 +1,7 @@
 ---
 layout: page
 show_meta: false
-title: "Come visit us"
+title: "Visit"
 # subheadline: "A Step-by-Step Guide"
 # teaser: "A teaser?"
 header:
