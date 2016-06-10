@@ -14,6 +14,8 @@
   url: "/about/"
   side: right
   dropdown:
+  - title: "About us"
+    url: "/about/"
   - title: "What we believe"
     url: "/about/believe/"
   - title: "Leadership team"
