@@ -27,7 +27,7 @@ author: SimonBiggs
 
 # This URL is the main address for absolute links. Don't include a slash at the end.
 #
-url: 'http://www.simonbiggs.net/jekyll-google-drive'
+url: 'http://churchsitedemo.simonbiggs.net'
 baseurl: ''
 
 # This is for the editing function in _/includes/improve_content
