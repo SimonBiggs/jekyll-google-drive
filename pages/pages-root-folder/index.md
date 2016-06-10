@@ -21,7 +21,7 @@ googlesheetpull: true
     <div class="medium-4 columns">
         <h2 class="font-size-h3 t10">Most recent sermons</h2>
            
-        <p>An audio bar goes here</p>
+        <p>An audio bar goes here. TEST</p>
     </div>
 
     <div class="medium-4 columns">
