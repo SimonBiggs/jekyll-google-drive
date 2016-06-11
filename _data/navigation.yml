@@ -19,7 +19,7 @@
   - title: "Leadership team"
     url: "/about/leadership/"
 
-- title: "Families and programs"
+- title: "Families & programs"
   url: "/families-and-programs/"
   side: right
   dropdown:
@@ -38,7 +38,7 @@
   - title: "Men's breakfast"
     url: "/families-and-programs/mensbreaky/"
 
-- title: "Ministries and Volunteering"
+- title: "Ministries & Volunteering"
   url: "/ministries-and-volunteering/"
   side: right
   dropdown:
@@ -61,7 +61,7 @@
   - title: "Counting offering"
     url: "/ministries-and-volunteering/countoffering"
 
-- title: "Roster Scheduler"
+- title: "Roster"
   url: "/roster/"
   side: right
 
