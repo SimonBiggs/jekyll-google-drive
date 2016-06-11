@@ -5,7 +5,7 @@ title: "Contact Us"
 # teaser: "A teaser?"
 header:
    image_fullwidth: "unsplash-aussyforrest2.jpg"
-permalink: "/contact/"
+permalink: "/about/contact/"
 breadcrumb: true
 googlesheetpull: true
 googlesheetlayout: contact
