@@ -147,6 +147,10 @@
 	{% if page.mediaplayer == true %}
 		<script src="{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js"></script>
 		<link rel="stylesheet" href="{{ url }}/assets/mediaelement_js/mediaelementplayer.min.css">
+     <script>
+// using jQuery
+$('video,audio').mediaelementplayer(/* Options */);
+</script>
 	{% endif %}
 
 	{% include _favicon.html %}
