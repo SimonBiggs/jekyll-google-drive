@@ -6,6 +6,7 @@ title: "Sermons"
 header:
    image_fullwidth: "unsplash-brisbanestars.jpg"
 permalink: "/sermons/"
+mediaplayer: true
 breadcrumb: true
 googlesheetpull: true
 googlesheetlayout: sermons
