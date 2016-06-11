@@ -75,6 +75,12 @@
     {% endif %}
     	
 	{% if page.googlesheetpull == true %}
+
+
+<script src="{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js"></script>
+		<link rel="stylesheet" href="{{ url }}/assets/mediaelement_js/mediaelementplayer.min.css">
+     
+
 	<script type="text/javascript">
 	    var layout_html = null;		
 		function load_layout_data(json) {
@@ -137,6 +143,7 @@
 		$(document).ready(function(){
 		    write_layout();
 			write_content();
+$('video,audio').mediaelementplayer(/* Options */);
 		});
 	
 	</script>
@@ -145,12 +152,7 @@
     {% endif %}
 
 	{% if page.mediaplayer == true %}
-		<script src="{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js"></script>
-		<link rel="stylesheet" href="{{ url }}/assets/mediaelement_js/mediaelementplayer.min.css">
-     <script>
-// using jQuery
-$('video,audio').mediaelementplayer(/* Options */);
-</script>
+		
 	{% endif %}
 
 	{% include _favicon.html %}
