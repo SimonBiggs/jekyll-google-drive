@@ -60,6 +60,10 @@
     url: "/ministries-and-volunteering/communionprep"
   - title: "Counting offering"
     url: "/ministries-and-volunteering/countoffering"
+  - title: "Prison Fellowship"
+    url: "/ministries-and-volunteering/prisonfellowship/"
+  - title: "Scripture in Schools"
+    url: "/ministries-and-volunteering/scripture/"
 
 - title: "Roster"
   url: "/roster/"
