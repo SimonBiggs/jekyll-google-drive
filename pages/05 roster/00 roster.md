@@ -1,14 +1,14 @@
 ---
 layout: page
-title: "Scripture in Schools"
+title: "Roster Scheduler"
 # subheadline: "A Step-by-Step Guide"
 # teaser: "A teaser?"
 # header:
 #    image_fullwidth: "unsplash-outback.jpg"
-permalink: "/ministries-and-volunteering/scripture/"
+permalink: "/roster/"
 breadcrumb: true
 googlesheetpull: true
-googlesheetlayout: scripture
+googlesheetlayout: roster
 ---
 
 <div class="google-sheet-layout"></div>
