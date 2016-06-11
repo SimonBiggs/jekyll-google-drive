@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "What we beleive"
+title: "What we believe"
 # subheadline: "A Step-by-Step Guide"
 # teaser: "A teaser?"
 header:
