@@ -2,76 +2,67 @@
   url: "/"
   side: left
 
-- title: Visit
-  url: "/visit/"
-  side: right
-  
-- title: "Contact"
-  url: "/contact/"
+- title: "Sermons"
+  url: "/sermons/"
   side: right
 
-- title: "About"
+- title: "About Us"
   url: "/about/"
   side: right
   dropdown:
+  - title: "Visit us"
+    url: "/about/visit/"
+  - title: "Contact us"
+    url: "/about/contact/"
   - title: "What we believe"
     url: "/about/believe/"
   - title: "Leadership team"
     url: "/about/leadership/"
 
-- title: "Sermons"
-  url: "/sermons/"
-  side: right
-
-- title: "Families"
-  url: "/families/"
+- title: "Families and programs"
+  url: "/families-and-programs/"
   side: right
   dropdown:
   - title: "Playgroup"
-    url: "/families/playgroup/"
+    url: "/families-and-programs/playgroup/"
   - title: "Creche"
-    url: "/families/creche/"
+    url: "/families-and-programs/creche/"
   - title: "Kids church"
-    url: "/families/kidschurch/"
+    url: "/families-and-programs/kidschurch/"
   - title: "Youth group"
-    url: "/families/youth/"
-
-- title: "Programs"
-  url: "/programs/"
-  side: right
-  dropdown:
+    url: "/families-and-programs/youth/"
   - title: "Alpha course"
-    url: "/programs/alpha/"
+    url: "/families-and-programs/alpha/"
   - title: "Women's breakfast"
-    url: "/programs/womansbreaky/"
+    url: "/families-and-programs/womansbreaky/"
   - title: "Men's breakfast"
-    url: "/programs/mensbreaky/"
+    url: "/families-and-programs/mensbreaky/"
 
 - title: "Ministries and Volunteering"
-  url: "/ministries/"
+  url: "/ministries-and-volunteering/"
   side: right
   dropdown:
   - title: "Speaker"
-    url: "/ministries/speaker/"
+    url: "/ministries-and-volunteering/speaker/"
   - title: "Worship team"
-    url: "/ministries/worship/"
+    url: "/ministries-and-volunteering/worship/"
   - title: "Communion"
-    url: "/ministries/communion/"
+    url: "/ministries-and-volunteering/communion/"
   - title: "Sound"
-    url: "/ministries/sound/"
+    url: "/ministries-and-volunteering/sound/"
   - title: "Morning tea"
-    url: "/ministries/tea/"
+    url: "/ministries-and-volunteering/tea/"
   - title: "Welcoming"
-    url: "/ministries/welcoming/"
+    url: "/ministries-and-volunteering/welcoming/"
   - title: "Childrens"
-    url: "/ministries/childrens/"
+    url: "/ministries-and-volunteering/childrens/"
   - title: "Communion preparations"
-    url: "/ministries/communionprep"
+    url: "/ministries-and-volunteering/communionprep"
   - title: "Counting offering"
-    url: "/ministries/countoffering"
+    url: "/ministries-and-volunteering/countoffering"
 
-- title: "Scheduler"
-  url: "/scheduler/"
+- title: "Roster Scheduler"
+  url: "/roster/"
   side: right
 
 # - title: Blog
