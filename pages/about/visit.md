@@ -5,7 +5,7 @@ title: "Visit"
 # teaser: "A teaser?"
 header:
    image_fullwidth: "unsplash-coffee.jpg"
-permalink: "/visit/"
+permalink: "/about/visit/"
 breadcrumb: true
 googlesheetpull: true
 googlesheetlayout: visit
