@@ -140,7 +140,8 @@
 		function write_google_document() {
 			parent = $(".google_docs_load");
 			if (parent.length > 0) {
-				parent.load("https://raw.githubusercontent.com/wiki/SimonBiggs/jekyll-google-drive/Playgroup.md body");
+				var wiki_contents = $.get("https://raw.githubusercontent.com/wiki/SimonBiggs/jekyll-google-drive/Playgroup.md");
+				parent.append(wiki_contents);
 			}
 		}
 		
