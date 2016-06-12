@@ -129,7 +129,7 @@
 		}
 		
 		function write_content() {
-		    $.each(obj_class_list, function ( index, obj_class ) {
+		    	$.each(obj_class_list, function ( index, obj_class ) {
 				var parent = $("." + obj_class);
 				if (parent.length > 0) {
 					parent.append(html_list[index]);
@@ -137,9 +137,17 @@
 			});
 		}
 		
+		function write_google_document() {
+			parent = $(".google_docs_load");
+			if (parent.length > 0) {
+				parent.load("https://docs.google.com/document/d/1fYDfYw9F3ofXJnmlUYDkJMyUoeWrL_P_rHe47Z2lfHw/pub?embedded=true" body);
+			}
+		}
+		
 		$(document).ready(function(){
-		    write_layout();
+		    	write_layout();
 			write_content();
+			write_google_document()
 		});
 	
 	</script>
