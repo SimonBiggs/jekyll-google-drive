@@ -45,14 +45,14 @@
 		
 		function write_layout() {
 		    var parent = $(".google-sheet-layout");
-		    parent.append(layout_html);
+		    parent.html(layout_html);
 		}
 		
 		function write_content() {
 		    	$.each(obj_class_list, function ( index, obj_class ) {
 				var parent = $("." + obj_class);
 				if (parent.length > 0) {
-					parent.append(html_list[index]);
+					parent.html(html_list[index]);
 				}
 			});
 		}
