@@ -87,7 +87,25 @@
 	    write_layout();
 		write_content();
 		
-		$("a.navigation-link-pull-googlesheets,a.parent-link.js-generated").click(rewrite_on_link(event));        
+		
+		
+		$(".navigation-link-pull-googlesheets").click(function(event) {
+            event.preventDefault();
+            url = $(this).attr("href");
+            History.pushState(null, null, url);
+            write_layout();
+		    write_content();
+            
+        });
+        
+        $("a.parent-link.js-generated").click(function(event) {
+            event.preventDefault();
+            url = $(this).attr("href");
+            History.pushState(null, null, url);
+            write_layout();
+		    write_content();
+            
+        });
 	});
 	
 	
