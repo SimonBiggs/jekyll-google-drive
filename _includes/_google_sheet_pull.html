@@ -1,67 +1,69 @@
 <script type="text/javascript">
-	    var layout_html = null;		
-		function load_layout_data(json) {
-		    var layout_data_list = json.feed.entry;
-		    
-		    var layout_label_list = [];
-		    var layout_html_list = [];	    
-			$.each(layout_data_list, function ( index, layout_data ) {
-				var cell = layout_data["gs$cell"];
-				var cell_contents = cell["$t"];
-								
-				if (cell.row == 1) {
-					layout_label_list.push(cell_contents);
-				}		
-				if (cell.row == 2) {
-					layout_html_list.push(cell_contents);
-				}
-			});
-			
-		    $.each(layout_label_list, function ( index, layout_label ) {
-				if (layout_label == "{{ page.googlesheetlayout }}") {
-					layout_html = layout_html_list[index];
-					return false;
-				}
-			});
-		}
-		
-		var obj_class_list = [];
-		var html_list = [];		
-		function load_content_data(json) {
-			var content_data_list = json.feed.entry;
-			
-			$.each(content_data_list, function ( index, content_data ) {
-				var cell = content_data["gs$cell"];
-				var cell_contents = cell["$t"];
-								
-				if (cell.row == 1) {
-					obj_class_list.push(cell_contents);
-				}		
-				if (cell.row == 2) {
-					html_list.push(cell_contents);
-				}		
-			});
-		}
-		
-		function write_layout() {
-		    var parent = $(".google-sheet-layout");
-		    parent.html(layout_html);
-		}
-		
-		function write_content() {
-		    	$.each(obj_class_list, function ( index, obj_class ) {
-				var parent = $("." + obj_class);
-				if (parent.length > 0) {
-					parent.html(html_list[index]);
-				}
-			});
-		}
-		
-		$(document).ready(function(){
-		    	write_layout();
-			write_content();
+    var layout_label_list = [];
+    var layout_html_list = [];
+
+	function load_layout_data(json) {
+	    var layout_data_list = json.feed.entry;
+	    
+		$.each(layout_data_list, function ( index, layout_data ) {
+			var cell = layout_data["gs$cell"];
+			var cell_contents = cell["$t"];
+							
+			if (cell.row == 1) {
+				layout_label_list.push(cell_contents);
+			}		
+			if (cell.row == 2) {
+				layout_html_list.push(cell_contents);
+			}
 		});
+	}
 	
-	</script>
-	<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_layout_id }}/public/values?alt=json-in-script&callback=load_layout_data"></script>
-	<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_contents_id }}/public/values?alt=json-in-script&callback=load_content_data"></script>
+	var obj_class_list = [];
+	var html_list = [];		
+	function load_content_data(json) {
+		var content_data_list = json.feed.entry;
+		
+		$.each(content_data_list, function ( index, content_data ) {
+			var cell = content_data["gs$cell"];
+			var cell_contents = cell["$t"];
+							
+			if (cell.row == 1) {
+				obj_class_list.push(cell_contents);
+			}		
+			if (cell.row == 2) {
+				html_list.push(cell_contents);
+			}		
+		});
+	}
+	
+	function write_layout() {
+	    var parent = $(".google-sheet-layout");
+	    var page_label = $.url.attr('page');
+	    if (page_label == null) {
+            page_label = "{{ page.googlesheetlayout }}";
+	    }
+	    $.each(layout_label_list, function ( index, layout_label ) {
+			if (layout_label == page_label) {
+				parent.html(layout_html_list[index]);
+				return false;
+			}
+		});
+	}
+	
+	function write_content() {
+	    	$.each(obj_class_list, function ( index, obj_class ) {
+			var parent = $("." + obj_class);
+			if (parent.length > 0) {
+				parent.html(html_list[index]);
+			}
+		});
+	}
+	
+	$(document).ready(function(){
+	    	write_layout();
+		write_content();
+	});
+
+</script>
+<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_layout_id }}/public/values?alt=json-in-script&callback=load_layout_data"></script>
+<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_contents_id }}/public/values?alt=json-in-script&callback=load_content_data"></script>
