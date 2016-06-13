@@ -7,7 +7,7 @@
   side: right
 
 - title: "About Us"
-  url: "/about/"
+  url: "/?page=aboutus"
   side: right
   dropdown:
   - title: "Visit us"
