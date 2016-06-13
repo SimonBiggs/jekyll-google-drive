@@ -77,5 +77,5 @@
 #     url: "/blog/archive/"
 
 - title: "Search"
-  url: "/search/"
+  url: "/?page=search"
   side: right
