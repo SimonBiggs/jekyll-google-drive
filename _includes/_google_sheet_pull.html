@@ -38,7 +38,7 @@
 	
 	function write_layout() {
 	    var parent = $(".google-sheet-layout");
-	    var page_label = $.url.attr('page');
+	    var page_label = $.url('page', location);
 	    if (page_label == null) {
             page_label = "{{ page.googlesheetlayout }}";
 	    }
