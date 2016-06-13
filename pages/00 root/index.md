@@ -1,13 +1,13 @@
 ---
-layout: frontpage
+layout: default
 header:
-  image_fullwidth: waggachurchofchristfamily.jpg
+  image_fullwidth: unsplash-outback.jpg
 permalink: /index.html
 homepage: true
 mediaplayer: true
 breadcrumb: true
 googlesheetpull: true
-googlesheetlayout: home_page
+googlesheetlayout: home
 ---
 
 <div class="google-sheet-layout"></div>
