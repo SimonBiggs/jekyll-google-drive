@@ -1,5 +1,5 @@
 - title: Home
-  url: "/"
+  url: "/?page=home"
   side: left
 
 - title: "Sermons"
