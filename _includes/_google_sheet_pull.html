@@ -97,7 +97,8 @@
                     History.pushState(null, null, url);
                     $("nav.top-bar").init()
                     write_layout();
-		            write_content();      
+		            write_content();
+		            window.scrollTo(0,0);
 		        }      
         });
 		
@@ -108,7 +109,8 @@
                 History.pushState(null, null, url);
                 $("nav.top-bar").init()
                 write_layout();
-		        write_content();            
+		        write_content();
+		        window.scrollTo(0,0);         
         });
         
         $("a.parent-link.js-generated").click(function(event) {
@@ -118,6 +120,7 @@
             $("nav.top-bar").init()
             write_layout();
 		    write_content();
+		    window.scrollTo(0,0);
         });
 	});
 	
