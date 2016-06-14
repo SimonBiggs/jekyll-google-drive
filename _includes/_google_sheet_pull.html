@@ -102,8 +102,8 @@
                         matchMedia(Foundation.media_queries.large).matches) {
                     event.preventDefault();
                     url = $(this).attr("href");
-                    page_label = getUrlStringParameter('page', url);
-                    History.pushState(null, page_label, url);
+                    //page_label = getUrlStringParameter('page', url);
+                    History.pushState(null, null, url);
                     Foundation.libs.topbar.toggle();
 		        }      
         });
@@ -112,8 +112,8 @@
 		    .click(function(event) {
                 event.preventDefault();
                 url = $(this).attr("href");
-                page_label = getUrlStringParameter('page', url);
-                History.pushState(null, page_label, url);
+                //page_label = getUrlStringParameter('page', url);
+                History.pushState(null, null, url);
                 Foundation.libs.topbar.toggle(); 
         });
         
@@ -121,15 +121,15 @@
 		    .click(function(event) {
                 event.preventDefault();
                 url = $(this).attr("href");
-                page_label = getUrlStringParameter('page', url);
-                History.pushState(null, page_label, url);  
+                //page_label = getUrlStringParameter('page', url);
+                History.pushState(null, null, url);  
         });
         
         $("a.parent-link.js-generated").click(function(event) {
             event.preventDefault();
             url = $(this).attr("href");
-            page_label = getUrlStringParameter('page', url);
-            History.pushState(null, page_label, url);
+            //page_label = getUrlStringParameter('page', url);
+            History.pushState(null, null, url);
             Foundation.libs.topbar.toggle();
         });
         
