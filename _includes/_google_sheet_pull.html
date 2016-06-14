@@ -97,9 +97,6 @@
                     url = $(this).attr("href");
                     History.pushState(null, null, url);
                     Foundation.libs.topbar.toggle();
-                    write_layout();
-		            write_content();
-		            window.scrollTo(0,0);
 		        }      
         });
 		
@@ -108,20 +105,14 @@
                 event.preventDefault();
                 url = $(this).attr("href");
                 History.pushState(null, page_label, url);
-                Foundation.libs.topbar.toggle();
-                write_layout();
-		        write_content();
-		        window.scrollTo(0,0);         
+                Foundation.libs.topbar.toggle(); 
         });
         
         $(".navigation-link-pull-googlesheets").not(".dropdown-link,.topbar-link")
 		    .click(function(event) {
                 event.preventDefault();
                 url = $(this).attr("href");
-                History.pushState(null, page_label, url);
-                write_layout();
-		        write_content();
-		        window.scrollTo(0,0);         
+                History.pushState(null, page_label, url);  
         });
         
         $("a.parent-link.js-generated").click(function(event) {
@@ -129,17 +120,14 @@
             url = $(this).attr("href");
             History.pushState(null, page_label, url);
             Foundation.libs.topbar.toggle();
-            write_layout();
-		    write_content();
-		    window.scrollTo(0,0);
         });
         
-        $(window).on('popstate', function() {
-            url = $(this).attr("href");
+        History.Adapter.bind(window,'statechange',function(){
             write_layout();
 		    write_content();
 		    window.scrollTo(0,0);
-        });
+		});
+
 	});
 	
 	
