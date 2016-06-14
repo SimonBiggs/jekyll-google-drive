@@ -95,11 +95,6 @@
                     event.preventDefault();
                     url = $(this).attr("href");
                     History.pushState(null, null, url);
-                    if (!matchMedia(Foundation.media_queries['topbar']).matches) {
-                        $("li.moved", section).removeClass('moved');
-                        $("nav.top-bar").data('index', 0);
-                        $("nav.top-bar").toggleClass('expanded').css('height', '');
-                    }
                     write_layout();
 		            write_content();
 		            window.scrollTo(0,0);
@@ -111,11 +106,9 @@
                 event.preventDefault();
                 url = $(this).attr("href");
                 History.pushState(null, null, url);
-                if (!matchMedia(Foundation.media_queries['topbar']).matches) {
-                    $("li.moved", section).removeClass('moved');
-                    $("nav.top-bar").data('index', 0);
-                    $("nav.top-bar").toggleClass('expanded').css('height', '');
-                }
+                $("li.moved", section).removeClass('moved');
+                $("nav.top-bar").data('index', 0);
+                $("nav.top-bar").toggleClass('expanded').css('height', '');
                 write_layout();
 		        write_content();
 		        window.scrollTo(0,0);         
@@ -125,11 +118,9 @@
             event.preventDefault();
             url = $(this).attr("href");
             History.pushState(null, null, url);
-            if (!matchMedia(Foundation.media_queries['topbar']).matches) {
-                $("li.moved", section).removeClass('moved');
-                $("nav.top-bar").data('index', 0);
-                $("nav.top-bar").toggleClass('expanded').css('height', '');
-            }
+            $("li.moved", section).removeClass('moved');
+            $("nav.top-bar").data('index', 0);
+            $("nav.top-bar").toggleClass('expanded').css('height', '');
             write_layout();
 		    write_content();
 		    window.scrollTo(0,0);
