@@ -89,12 +89,13 @@
 		
 		$(".navigation-link-pull-googlesheets.dropdown-link")  
 		    .click(function(event) {
-		        if (matchMedia(Foundation.media_queries.small).matches && matchMedia(Foundation.media_queries.medium).matches &&
+		        if (    matchMedia(Foundation.media_queries.small).matches && 
+		                matchMedia(Foundation.media_queries.medium).matches &&
                         matchMedia(Foundation.media_queries.large).matches) {
                     event.preventDefault();
                     url = $(this).attr("href");
                     History.pushState(null, null, url);
-                    //$("nav.top-bar").toggle(this.scope)
+                    $("nav.top-bar").init()
                     write_layout();
 		            write_content();      
 		        }      
@@ -105,7 +106,7 @@
                 event.preventDefault();
                 url = $(this).attr("href");
                 History.pushState(null, null, url);
-                //$("nav.top-bar").toggle(this.scope)
+                $("nav.top-bar").init()
                 write_layout();
 		        write_content();            
         });
@@ -114,7 +115,7 @@
             event.preventDefault();
             url = $(this).attr("href");
             History.pushState(null, null, url);
-            //$("nav.top-bar").toggle(this.scope)
+            $("nav.top-bar").init()
             write_layout();
 		    write_content();
         });
