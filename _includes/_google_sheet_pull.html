@@ -76,14 +76,6 @@
 		});
 	}
 	
-	function rewrite_on_link(event) {
-        event.preventDefault();
-        url = $(this).attr("href");
-        History.pushState(null, null, url);
-        write_layout();
-	    write_content();	
-	}
-	
 	$(document).ready(function(){
 	    write_layout();
 		write_content();
@@ -95,7 +87,8 @@
                         matchMedia(Foundation.media_queries.large).matches) {
                     event.preventDefault();
                     url = $(this).attr("href");
-                    History.pushState(null, null, url);
+                    page_label = getUrlParameter('page');
+                    History.pushState(null, page_label, url);
                     Foundation.libs.topbar.toggle();
 		        }      
         });
@@ -104,6 +97,7 @@
 		    .click(function(event) {
                 event.preventDefault();
                 url = $(this).attr("href");
+                page_label = getUrlParameter('page');
                 History.pushState(null, page_label, url);
                 Foundation.libs.topbar.toggle(); 
         });
@@ -112,12 +106,14 @@
 		    .click(function(event) {
                 event.preventDefault();
                 url = $(this).attr("href");
+                page_label = getUrlParameter('page');
                 History.pushState(null, page_label, url);  
         });
         
         $("a.parent-link.js-generated").click(function(event) {
             event.preventDefault();
             url = $(this).attr("href");
+            page_label = getUrlParameter('page');
             History.pushState(null, page_label, url);
             Foundation.libs.topbar.toggle();
         });
