@@ -41,7 +41,7 @@
 
               <li class="divider"></li>
               <li class="has-dropdown{% if link.url == page.url %} active{% endif %}">
-                <a class="navigation-link-pull-googlesheets" href="{{ domain }}{{ site.baseurl }}{{ link.url }}"{% if link.url contains 'http' %} target="_blank"{% endif %}>{{ link.title | escape }}</a>
+                <a href="{{ domain }}{{ site.baseurl }}{{ link.url }}"{% if link.url contains 'http' %} target="_blank"{% endif %}>{{ link.title | escape }}</a>
 
                   <ul class="dropdown">
                     {% for dropdown_link in link.dropdown %}
@@ -95,7 +95,7 @@
             {% else %}
 
               <li class="has-dropdown{% if link.url == page.url %} active{% endif %}">
-                <a class="navigation-link-pull-googlesheets" href="{{ domain }}{{ site.baseurl }}{{ link.url }}"{% if link.url contains 'http' %} target="_blank"{% endif %}>{{ link.title | escape }}</a>
+                <a href="{{ domain }}{{ site.baseurl }}{{ link.url }}"{% if link.url contains 'http' %} target="_blank"{% endif %}>{{ link.title | escape }}</a>
 
                   <ul class="dropdown">
                     {% for dropdown_link in link.dropdown %}
