@@ -89,25 +89,16 @@
                     url = $(this).attr("href");
                     //page_label = getUrlStringParameter('page', url);
                     History.pushState(null, null, url);
-                    Foundation.libs.topbar.toggle();
 		        }      
         });
 		
-		$(".navigation-link-pull-googlesheets.topbar-link").not(".dropdown-link")
+		$(".navigation-link-pull-googlesheets").not(".dropdown-link")
 		    .click(function(event) {
                 event.preventDefault();
                 url = $(this).attr("href");
                 //page_label = getUrlStringParameter('page', url);
                 History.pushState(null, null, url);
-                Foundation.libs.topbar.toggle(); 
-        });
-        
-        $(".navigation-link-pull-googlesheets").not(".dropdown-link,.topbar-link")
-		    .click(function(event) {
-                event.preventDefault();
-                url = $(this).attr("href");
-                //page_label = getUrlStringParameter('page', url);
-                History.pushState(null, null, url);  
+                 
         });
         
         $("a.parent-link.js-generated").click(function(event) {
@@ -115,10 +106,12 @@
             url = $(this).attr("href");
             //page_label = getUrlStringParameter('page', url);
             History.pushState(null, null, url);
-            Foundation.libs.topbar.toggle();
         });
         
         History.Adapter.bind(window,'statechange',function(){
+            if ( $(".top-bar").hasClass( "expanded" ) ) {
+                Foundation.libs.topbar.toggle();
+            }
             write_layout();
 		    write_content();
 		    window.scrollTo(0,0);
