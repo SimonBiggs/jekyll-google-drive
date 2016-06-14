@@ -95,7 +95,7 @@
                     event.preventDefault();
                     url = $(this).attr("href");
                     History.pushState(null, null, url);
-                    $("li.toggle-topbar").toggle(this);
+                    $($("li.toggle-topbar").scope).toggle(this);
                     write_layout();
 		            write_content();
 		            window.scrollTo(0,0);
@@ -107,7 +107,7 @@
                 event.preventDefault();
                 url = $(this).attr("href");
                 History.pushState(null, null, url);
-                $("li.toggle-topbar").toggle(this);
+                $($("li.toggle-topbar").scope).toggle(this);
                 write_layout();
 		        write_content();
 		        window.scrollTo(0,0);         
@@ -117,7 +117,7 @@
             event.preventDefault();
             url = $(this).attr("href");
             History.pushState(null, null, url);
-            $("li.toggle-topbar").toggle(this);
+            $($("li.toggle-topbar").scope).toggle(this);
             write_layout();
 		    write_content();
 		    window.scrollTo(0,0);
