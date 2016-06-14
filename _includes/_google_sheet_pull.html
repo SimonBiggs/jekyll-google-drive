@@ -16,8 +16,7 @@
     };
     
     var getUrlStringParameter = function getUrlParameter(sParam, url) {
-        var sPageURL = decodeURIComponent(url.search.substring(1)),
-            sURLVariables = sPageURL.split('&'),
+        var sURLVariables = url.split('&'),
             sParameterName,
             i;
 
