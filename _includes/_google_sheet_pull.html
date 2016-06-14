@@ -95,7 +95,7 @@
                         matchMedia(Foundation.media_queries.large).matches) {
                     event.preventDefault();
                     url = $(this).attr("href");
-                    History.pushState(null, page_label, url);
+                    History.pushState(null, null, url);
                     Foundation.libs.topbar.toggle();
                     write_layout();
 		            write_content();
@@ -129,6 +129,13 @@
             url = $(this).attr("href");
             History.pushState(null, page_label, url);
             Foundation.libs.topbar.toggle();
+            write_layout();
+		    write_content();
+		    window.scrollTo(0,0);
+        });
+        
+        $(window).on('popstate', function() {
+            url = $(this).attr("href");
             write_layout();
 		    write_content();
 		    window.scrollTo(0,0);
