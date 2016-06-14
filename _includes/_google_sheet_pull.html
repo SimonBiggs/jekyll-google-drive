@@ -93,7 +93,7 @@
             event.preventDefault();
             url = $(this).attr("href");
             History.pushState(null, null, url);
-            //$("nav.top-bar").toggleClass("expanded")
+            $("nav.top-bar").toggle()
             write_layout();
 		    write_content();
             
@@ -103,6 +103,7 @@
             event.preventDefault();
             url = $(this).attr("href");
             History.pushState(null, null, url);
+            $("nav.top-bar").toggle()
             write_layout();
 		    write_content();
             
