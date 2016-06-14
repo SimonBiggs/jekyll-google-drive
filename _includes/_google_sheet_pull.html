@@ -52,9 +52,10 @@
 		});
 	}
 	
+	var page_label = null
 	function write_layout() {
 	    var parent = $(".google-sheet-layout");
-	    var page_label = getUrlParameter('page');
+	    page_label = getUrlParameter('page');
 	    if (page_label == null) {
             page_label = "{{ page.googlesheetlayout }}";
 	    }
@@ -87,14 +88,14 @@
 	    write_layout();
 		write_content();
 		
-		$(".navigation-link-pull-googlesheets.dropdown-link")  
+		$(".navigation-link-pull-googlesheets.topbar-link.dropdown-link")  
 		    .click(function(event) {
 		        if (    matchMedia(Foundation.media_queries.small).matches && 
 		                matchMedia(Foundation.media_queries.medium).matches &&
                         matchMedia(Foundation.media_queries.large).matches) {
                     event.preventDefault();
                     url = $(this).attr("href");
-                    History.pushState(null, null, url);
+                    History.pushState(null, page_label, url);
                     Foundation.libs.topbar.toggle();
                     write_layout();
 		            write_content();
@@ -102,12 +103,22 @@
 		        }      
         });
 		
-		$(".navigation-link-pull-googlesheets").not(".dropdown-link")
+		$(".navigation-link-pull-googlesheets.topbar-link").not(".dropdown-link")
 		    .click(function(event) {
                 event.preventDefault();
                 url = $(this).attr("href");
-                History.pushState(null, null, url);
+                History.pushState(null, page_label, url);
                 Foundation.libs.topbar.toggle();
+                write_layout();
+		        write_content();
+		        window.scrollTo(0,0);         
+        });
+        
+        $(".navigation-link-pull-googlesheets").not(".dropdown-link,.topbar-link")
+		    .click(function(event) {
+                event.preventDefault();
+                url = $(this).attr("href");
+                History.pushState(null, page_label, url);
                 write_layout();
 		        write_content();
 		        window.scrollTo(0,0);         
@@ -116,7 +127,7 @@
         $("a.parent-link.js-generated").click(function(event) {
             event.preventDefault();
             url = $(this).attr("href");
-            History.pushState(null, null, url);
+            History.pushState(null, page_label, url);
             Foundation.libs.topbar.toggle();
             write_layout();
 		    write_content();
