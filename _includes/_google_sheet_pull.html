@@ -118,6 +118,13 @@
             }
             write_layout();
 		    write_content();
+		    $('.google-sheet-layout a[href*="page="]').click(function(event) {
+		        event.preventDefault();
+                url = $(this).attr("href");
+                //page_label = getUrlStringParameter('page', url);
+                History.pushState(null, null, url);
+		    }
+		    
 		    window.scrollTo(0,0);
 		});
 
