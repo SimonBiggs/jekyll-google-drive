@@ -35,6 +35,7 @@
 	}
 	
 	var obj_class_list = [];
+	var page_title_list = [];
 	var html_list = [];		
 	function load_content_data(json) {
 		var content_data_list = json.feed.entry;
@@ -45,8 +46,11 @@
 							
 			if (cell.row == 1) {
 				obj_class_list.push(cell_contents);
-			}		
+			}
 			if (cell.row == 2) {
+				page_title_list.push(cell_contents);
+			}	
+			if (cell.row == 3) {
 				html_list.push(cell_contents);
 			}		
 		});
