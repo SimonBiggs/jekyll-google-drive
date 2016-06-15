@@ -90,6 +90,18 @@
 		});
 	}
 	
+	function return_page_title() {
+	    var page_title = null;
+        $.each(layout_label_list, function ( index, layout_label ) {
+	        if (layout_label == page_label) {
+	            page_title = page_title_list[index];
+		        return false;
+	        }
+        });
+        
+        return page_title;
+	}
+	
 	$(document).ready(function(){
 	    write_layout();
 		write_content();
@@ -101,8 +113,8 @@
                         matchMedia(Foundation.media_queries.large).matches) {
                     event.preventDefault();
                     url = $(this).attr("href");
-                    //page_label = getUrlStringParameter('page', url);
-                    History.pushState(null, null, url);
+                    page_label = url.split("page=")[1].split("&")[0]
+                    History.pushState(null, return_page_title(), url);
 		        }      
         });
 		
@@ -110,8 +122,8 @@
 		    .click(function(event) {
                 event.preventDefault();
                 url = $(this).attr("href");
-                //page_label = getUrlStringParameter('page', url);
-                History.pushState(null, null, url);
+                page_label = url.split("page=")[1].split("&")[0]
+                History.pushState(null, return_page_title(), url);
                  
         });
         
@@ -124,8 +136,8 @@
 		    $('.google-sheet-layout a[href*="page="]').click(function(event) {
 		        event.preventDefault();
                 url = $(this).attr("href");
-                //page_label = getUrlStringParameter('page', url);
-                History.pushState(null, null, url);
+                page_label = url.split("page=")[1].split("&")[0]
+                History.pushState(null, return_page_title(), url);
 		    });
 		    
 		    window.scrollTo(0,0);
