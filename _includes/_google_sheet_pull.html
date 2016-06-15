@@ -113,7 +113,7 @@
                         matchMedia(Foundation.media_queries.large).matches) {
                     event.preventDefault();
                     url = $(this).attr("href");
-                    page_label = url.split("page=")[1].split("&")[0]
+                    page_label = url.split("page=")[1].split("&")[0];
                     History.pushState(null, return_page_title(), url);
 		        }      
         });
@@ -122,7 +122,7 @@
 		    .click(function(event) {
                 event.preventDefault();
                 url = $(this).attr("href");
-                page_label = url.split("page=")[1].split("&")[0]
+                page_label = url.split("page=")[1].split("&")[0];
                 History.pushState(null, return_page_title(), url);
                  
         });
@@ -136,7 +136,7 @@
 		    $('.google-sheet-layout a[href*="page="]').click(function(event) {
 		        event.preventDefault();
                 url = $(this).attr("href");
-                page_label = url.split("page=")[1].split("&")[0]
+                page_label = url.split("page=")[1].split("&")[0];
                 History.pushState(null, return_page_title(), url);
 		    });
 		    
