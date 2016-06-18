@@ -60,7 +60,8 @@
       <div id="subfooter">
         <nav class="row">
           <section id="subfooter-left" class="small-12 medium-6 columns credits">
-            {{ site.credits }}
+            <p>{{ site.credits }} Dynamically pulls website content from
+            <a href="https://docs.google.com/spreadsheets/d/{{ site.google_sheet_id }}/edit">Google Sheets</a>.</p>
           </section>
 
           <section id="subfooter-right" class="small-12 medium-6 columns">

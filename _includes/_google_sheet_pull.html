@@ -149,5 +149,7 @@
 
 </script>
 <script src="http://browserstate.github.io/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
-<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_layout_id }}/public/values?alt=json-in-script&callback=load_layout_data"></script>
-<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_contents_id }}/public/values?alt=json-in-script&callback=load_content_data"></script>
+<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_layout_page_number }}/public/values?alt=json-in-script&callback=load_layout_data"></script>
+<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_contents_page_number }}/public/values?alt=json-in-script&callback=load_content_data"></script>
+
+
