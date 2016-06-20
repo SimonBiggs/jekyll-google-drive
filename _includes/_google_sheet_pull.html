@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
-<script src="{{ url }}/assets/responsive_tables/responsive-tables.js"></script>
 
 <script type="text/javascript">
 
@@ -108,6 +107,7 @@
 	$(document).ready(function(){
 	    write_layout();
 	    write_content();
+	    $.getScript( "{{ url }}/assets/responsive_tables/responsive-tables.js" )
 	    //$.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js");
 	    //$('video,audio').mediaelementplayer();
 		
@@ -141,6 +141,7 @@
             
             write_layout();
             write_content();
+            $.getScript( "{{ url }}/assets/responsive_tables/responsive-tables.js" )
             //$.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js");
             //$('video,audio').mediaelementplayer();
 		    $('.google-sheet-layout a[href*="page="]').click(function(event) {
