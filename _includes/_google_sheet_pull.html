@@ -109,6 +109,32 @@
     {original.wrap("<div class='table-wrapper' />");var copy=original.clone();copy.find("td:not(:first-child), th:not(:first-child)").css("display","none");copy.removeClass("responsive");original.closest(".table-wrapper").append(copy);copy.wrap("<div class='pinned' />");original.wrap("<div class='scrollable' />");}
     function unsplitTable(original){original.closest(".table-wrapper").find(".pinned").remove();original.unwrap();original.unwrap();}}
 	
+	function table_filter() {
+    //split the current value of searchInput
+    var data = this.value.toUpperCase().split(" ");
+    //create a jquery object of the rows
+    var jo = $("#fbody").find("tr");
+    if (this.value == "") {
+        jo.show();
+        return;
+    }
+    //hide all the rows
+    jo.hide();
+
+    //Recusively filter the jquery object to get results.
+    jo.filter(function (i, v) {
+        var $t = $(this);
+        for (var d = 0; d < data.length; ++d) {
+            if ($t.text().toUpperCase().indexOf(data[d]) > -1) {
+                return true;
+            }
+        }
+        return false;
+    })
+    //show the rows that match.
+    .show();
+    }
+	
 	$(document).ready(function(){
 	    write_layout();
 	    write_content();
@@ -126,7 +152,8 @@
               cache: true
             }).done(function() {
 		        $('video,audio').mediaelementplayer();
-        });		
+        });
+        $(".tablefilterinput").keyup(table_filter());
 		$('a[href*="page="].dropdown-link') 
 		    .click(function(event) {
 		        if (    matchMedia(Foundation.media_queries.small).matches && 
@@ -171,7 +198,8 @@
                   cache: true
                 }).done(function() {
 		            $('video,audio').mediaelementplayer();
-            });	
+            });
+            $(".tablefilterinput").keyup(table_filter());
 		    $('.google-sheet-layout a[href*="page="]').click(function(event) {
 		        event.preventDefault();
                 url = $(this).attr("href");
