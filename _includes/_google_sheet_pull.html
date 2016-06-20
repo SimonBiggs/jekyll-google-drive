@@ -113,15 +113,20 @@
 	    write_layout();
 	    write_content();
 	    responsive_tables();
-	    $.getScript("{{ url }}/assets/stupidtable/stupidtable.js")
-            .done(function() {
-	            $("table").stupidtable();
+	    $.ajax({
+              url: "{{ url }}/assets/stupidtable/stupidtable.js",
+              dataType: "script",
+              cache: true
+            }).done(function() {
+		        $("table").stupidtable();
         });
-        $.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js")
-            .done(function() {
-	            $('video,audio').mediaelementplayer();
-        });
-		
+        $.ajax({
+              url: "{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js",
+              dataType: "script",
+              cache: true
+            }).done(function() {
+		        $('video,audio').mediaelementplayer();
+        });		
 		$('a[href*="page="].dropdown-link') 
 		    .click(function(event) {
 		        if (    matchMedia(Foundation.media_queries.small).matches && 
@@ -153,14 +158,20 @@
             write_layout();
             write_content();
             responsive_tables();
-            $.getScript("{{ url }}/assets/stupidtable/stupidtable.js")
-	            .done(function() {
+	        $.ajax({
+                  url: "{{ url }}/assets/stupidtable/stupidtable.js",
+                  dataType: "script",
+                  cache: true
+                }).done(function() {
 		            $("table").stupidtable();
             });
-            $.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js")
-	            .done(function() {
+            $.ajax({
+                  url: "{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js",
+                  dataType: "script",
+                  cache: true
+                }).done(function() {
 		            $('video,audio').mediaelementplayer();
-            });
+            });	
 		    $('.google-sheet-layout a[href*="page="]').click(function(event) {
 		        event.preventDefault();
                 url = $(this).attr("href");
