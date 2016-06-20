@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
-<script src="{{ url }}/assets/stupidtable/stupidtable.js"></script>
 
 <script type="text/javascript">
 
@@ -114,7 +113,10 @@
 	    write_layout();
 	    write_content();
 	    responsive_tables();
-	    $("table").stupidtable();
+	    $.getScript("{{ url }}/assets/stupidtable/stupidtable.js")
+            .done(function() {
+	            $("table").stupidtable();
+        });
 	    //$.getScript( "{{ url }}/assets/responsive_tables/responsive-tables.js" )
 	    //$.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js");
 	    //$('video,audio').mediaelementplayer();
@@ -150,7 +152,11 @@
             write_layout();
             write_content();
             responsive_tables();
-            $("table").stupidtable();
+            $.getScript("{{ url }}/assets/stupidtable/stupidtable.js")
+	            .done(function() {
+		            $("table").stupidtable();
+            });
+            
             //$.getScript( "{{ url }}/assets/responsive_tables/responsive-tables.js" )
             //$.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js");
             //$('video,audio').mediaelementplayer();
