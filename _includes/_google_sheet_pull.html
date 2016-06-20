@@ -126,7 +126,7 @@
               cache: true
             }).done(function() {
 		        $('video,audio').mediaelementplayer();
-        });
+        }); /*
         $(".tablefilterinput").keyup(function () {
             //split the current value of searchInput
             var data = this.value.toUpperCase().split(" ");
@@ -159,7 +159,7 @@
             $(this).unbind('focus');
         }).css({
             "color": "#C0C0C0"
-        });
+        }); */
 		$('a[href*="page="].dropdown-link') 
 		    .click(function(event) {
 		        if (    matchMedia(Foundation.media_queries.small).matches && 
@@ -205,6 +205,7 @@
                 }).done(function() {
 		            $('video,audio').mediaelementplayer();
             });
+            /*
             $(".tablefilterinput").keyup(function () {
                 //split the current value of searchInput
                 var data = this.value.toUpperCase().split(" ");
@@ -237,7 +238,7 @@
                 $(this).unbind('focus');
             }).css({
                 "color": "#C0C0C0"
-            });
+            }); */
 		    $('.google-sheet-layout a[href*="page="]').click(function(event) {
 		        event.preventDefault();
                 url = $(this).attr("href");
