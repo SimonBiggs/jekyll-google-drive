@@ -117,9 +117,10 @@
             .done(function() {
 	            $("table").stupidtable();
         });
-	    //$.getScript( "{{ url }}/assets/responsive_tables/responsive-tables.js" )
-	    //$.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js");
-	    //$('video,audio').mediaelementplayer();
+        $.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js")
+            .done(function() {
+	            $('video,audio').mediaelementplayer();
+        });
 		
 		$('a[href*="page="].dropdown-link') 
 		    .click(function(event) {
@@ -156,10 +157,10 @@
 	            .done(function() {
 		            $("table").stupidtable();
             });
-            
-            //$.getScript( "{{ url }}/assets/responsive_tables/responsive-tables.js" )
-            //$.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js");
-            //$('video,audio').mediaelementplayer();
+            $.getScript("{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js")
+	            .done(function() {
+		            $('video,audio').mediaelementplayer();
+            });
 		    $('.google-sheet-layout a[href*="page="]').click(function(event) {
 		        event.preventDefault();
                 url = $(this).attr("href");
