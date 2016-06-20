@@ -1,4 +1,4 @@
-<!-- <link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css"> -->
+<link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
 
 <script type="text/javascript">
 
@@ -112,7 +112,7 @@
 	$(document).ready(function(){
 	    write_layout();
 	    write_content();
-	    //responsive_tables();
+	    responsive_tables();
 	    $.ajax({
               url: "{{ url }}/assets/stupidtable/stupidtable.js",
               dataType: "script",
@@ -190,7 +190,7 @@
             
             write_layout();
             write_content();
-            //responsive_tables();
+            responsive_tables();
 	        $.ajax({
                   url: "{{ url }}/assets/stupidtable/stupidtable.js",
                   dataType: "script",
