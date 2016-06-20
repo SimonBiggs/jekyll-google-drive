@@ -131,7 +131,7 @@
             //split the current value of searchInput
             var data = this.value.toUpperCase().split(" ");
             //create a jquery object of the rows
-            var jo = $("#fbody").find("tr");
+            var jo = $(".filtertablebody").find("tr");
             if (this.value == "") {
                 jo.show();
                 return;
@@ -209,7 +209,7 @@
                 //split the current value of searchInput
                 var data = this.value.toUpperCase().split(" ");
                 //create a jquery object of the rows
-                var jo = $("#fbody").find("tr");
+                var jo = $(".filtertablebody").find("tr");
                 if (this.value == "") {
                     jo.show();
                     return;
