@@ -164,11 +164,19 @@
 	function new_googlesheet_page() {
 	    write_layout();
 	    write_content();
-	    switched=false;
-	    update_responsive_tables();
-        load_tablesort();
-        load_mediaelements();
-        create_tablefilter();
+	    if ($('table.responsive').length > 0) {
+	        switched=false;
+	        update_responsive_tables();
+	    }
+	    if ($('table').length > 0) {
+            load_tablesort();
+        }
+        if ($('video,audio').length > 0) {
+            load_mediaelements();
+        }
+        if ($(".tablefilterinput").length > 0) {
+            create_tablefilter();
+        }        
 	}
 	
 	var switched=false;
