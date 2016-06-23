@@ -16,7 +16,7 @@ small_title: 'Wagga Church of Christ'
 slogan: 'Growing together in Christ to impact our world'
 
 # The description is used on homepage and in the footer to quickly describe your website. Use a maximum of 150 characters for SEO-purposes.
-description: '<span class="footer-about_us"/>'
+description: '<span class="footer-about_us"></span>'
 
 # The credits show up in the includes/_footer.html – It would be nice of you to leave a link to Phlow or Feeling Responsive as a thank you :)
 credits: 'Created by <a href="http://simonbiggs.net/">Simon Biggs</a> hosted on <a href="https://github.com/SimonBiggs/jekyll-google-drive" target="_blank">Github</a> based on <a href="http://phlow.github.io/feeling-responsive/">Feeling Responsive</a>.'
