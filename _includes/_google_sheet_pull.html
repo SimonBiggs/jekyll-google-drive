@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
+<script src="https://cdn.rawgit.com/showdownjs/showdown/1.4.2/dist/showdown.min.js"></script>
 
 <script type="text/javascript">
+
+    var converter = new showdown.Converter();
 
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -52,7 +55,8 @@
 				obj_class_list.push(cell_contents);
 			}
 			if (cell.row == 2) {
-				content_html_list.push(cell_contents);
+			    var html = converter.makeHtml(cell_contents);
+				content_html_list.push(html);
 			}		
 		});
 	}
@@ -231,7 +235,7 @@
 		                matchMedia(Foundation.media_queries.medium).matches &&
                         matchMedia(Foundation.media_queries.large).matches) {
                     event.preventDefault();
-                    url = $(this).attr("href");
+                    var url = $(this).attr("href");
                     page_label = url.split("page=")[1].split("&")[0];
                     History.pushState(null, return_page_title(), url);
 		        }      
@@ -239,17 +243,16 @@
 		$('a[href*="page="]').not(".dropdown-link")
 		    .click(function(event) {
                 event.preventDefault();
-                url = $(this).attr("href");
+                var url = $(this).attr("href");
                 page_label = url.split("page=")[1].split("&")[0];
-                History.pushState(null, return_page_title(), url);
-                 
+                History.pushState(null, return_page_title(), url);                 
         });
 	}
 	
 	function rebind_only_new_links() {
 		$('.google-sheet-layout a[href*="page="]').click(function(event) {
 	        event.preventDefault();
-            url = $(this).attr("href");
+            var url = $(this).attr("href");
             page_label = url.split("page=")[1].split("&")[0];
             History.pushState(null, return_page_title(), url);
 	    });
