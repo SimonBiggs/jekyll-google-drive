@@ -37,8 +37,7 @@
 				page_title_list.push(cell_contents);
 			}
 			if (cell.row == 3) {
-			    var html = converter.makeHtml(cell_contents);
-				layout_html_list.push(html);
+				layout_html_list.push(cell_contents);
 			}
 		});
 	}
@@ -56,8 +55,7 @@
 				obj_class_list.push(cell_contents);
 			}
 			if (cell.row == 2) {
-			    var html = converter.makeHtml(cell_contents);
-				content_html_list.push(html);
+				content_html_list.push(converter.makeHtml(cell_contents));
 			}		
 		});
 	}
