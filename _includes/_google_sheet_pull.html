@@ -228,7 +228,8 @@
 	}
 	
 	function initial_rebind_of_links() {
-		$('a[href*="page="].dropdown-link') 
+		$('a[href*="page="].dropdown-link')
+		    .not('.google-sheet-layout a[href*="#"]')
 		    .click(function(event) {
 		        if (    matchMedia(Foundation.media_queries.small).matches && 
 		                matchMedia(Foundation.media_queries.medium).matches &&
@@ -240,6 +241,7 @@
 		        }      
         });
 		$('a[href*="page="]').not(".dropdown-link")
+		    .not('.google-sheet-layout a[href*="#"]')
 		    .click(function(event) {
                 event.preventDefault();
                 var url = $(this).attr("href");
@@ -249,7 +251,9 @@
 	}
 	
 	function rebind_only_new_links() {
-		$('.google-sheet-layout a[href*="page="]').click(function(event) {
+		$('.google-sheet-layout a[href*="page="]')
+		    .not('.google-sheet-layout a[href*="#"]')
+		    .click(function(event) {
 	        event.preventDefault();
             var url = $(this).attr("href");
             page_label = url.split("page=")[1].split("&")[0];
