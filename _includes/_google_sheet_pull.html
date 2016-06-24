@@ -127,6 +127,22 @@
         }); 
 	}
 	
+	var edit_timestamp = null;
+	function load_edit_timestamp(json) {
+		edit_timestamp = new Date(json.feed.entry[0]["gs$cell"]["$t"]);
+		$(".last_edit_footer").html(edit_timestamp.toISOString());		
+	}
+	
+	function pull_edit_timestamp() {
+	    $.ajax({
+              url: "https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_timestamp_page_number }}/public/values?alt=json-in-script&callback=load_edit_timestamp",
+              dataType: "script",
+              cache: false
+        });
+    }
+    
+    setInterval(pull_edit_timestamp, 1000 * 5);
+	
 	function create_tablefilter() {
 	    $(".tablefilterinput").keyup(function () {
             //split the current value of searchInput

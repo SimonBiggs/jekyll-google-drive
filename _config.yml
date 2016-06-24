@@ -33,6 +33,7 @@ baseurl: ''
 google_sheet_id: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU'
 google_sheet_layout_page_number: '2'
 google_sheet_contents_page_number: '3'
+google_sheet_timestamp_page_number: '4'
 
 # This is for the editing function in _/includes/improve_content
 # Leave it empty if your site is not on GitHub/GitHub Pages
