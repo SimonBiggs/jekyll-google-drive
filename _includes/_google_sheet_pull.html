@@ -168,7 +168,7 @@
 		var now = new Date();		
 		$(".last_edit_footer").html(time_difference(edit_timestamp, now));
 		
-		if (now - edit_timestamp < 10000) {
+		if (now - edit_timestamp < 2000) {
 		    check_for_content_or_layout_change();
 		}
 	}
@@ -181,7 +181,7 @@
         });
     }
     
-    setInterval(pull_edit_timestamp, 1000 * 5);
+    setInterval(pull_edit_timestamp, 1000);
     
     var old_layout_label_list = [];
     var old_page_title_dict = {};
@@ -234,9 +234,7 @@
     }
     
     function update_different_google_sheet_content() {
-            
-            write_only_different_content();
-            
+            write_only_different_content_and_update();
     }
 	
 	function create_tablefilter() {
