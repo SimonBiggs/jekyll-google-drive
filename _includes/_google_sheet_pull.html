@@ -21,10 +21,17 @@
     };
     
     var layout_label_list = [];
-    var page_title_list = [];
-    var layout_html_list = [];
+    var page_title_dict = {};
+    var layout_html_dict = {};
 	function load_layout_data(json) {
+	    layout_label_list = [];
+	    layout_html_dict = {};
+	    page_title_dict = {};
+	    
 	    var layout_data_list = json.feed.entry;
+	    
+	    var page_title_list = [];
+        var layout_html_list = [];
 	    
 		$.each(layout_data_list, function ( index, layout_data ) {
 			var cell = layout_data["gs$cell"];
@@ -40,12 +47,21 @@
 				layout_html_list.push(cell_contents);
 			}
 		});
+		
+		$.each(layout_label_list, function ( index, layout_label ) {
+			page_title_dict[layout_label] = page_title_list[index];
+			layout_html_dict[layout_label] = layout_html_list[index];
+		});
 	}
 	
 	var obj_class_list = [];
-	var content_html_list = [];		
+	var content_html_dict = {};		
 	function load_content_data(json) {
+	    obj_class_list = [];
+	    content_html_dict = {};	
+	    
 		var content_data_list = json.feed.entry;
+		var content_html_list = [];
 		
 		$.each(content_data_list, function ( index, content_data ) {
 			var cell = content_data["gs$cell"];
@@ -58,6 +74,10 @@
 				content_html_list.push(converter.makeHtml(cell_contents));
 			}		
 		});
+		
+		$.each(obj_class_list, function ( index, obj_class ) {
+			content_html_dict[obj_class] = content_html_list[index];
+		});
 	}
 	
 	var page_label = null
@@ -67,21 +87,10 @@
 	    if (page_label == null) {
             page_label = "{{ page.googlesheetlayout }}";
 	    }
-	    var page_html = null
-	    $.each(layout_label_list, function ( index, layout_label ) {
-			if (layout_label == page_label) {
-			    page_html = layout_html_list[index];
-				return false;
-			}
-		});
-		if (page_html == null) {
+	    var page_html = layout_html_dict[page_label]
+		if (page_html == undefined) {
             page_label = "404";
-            $.each(layout_label_list, function ( index, layout_label ) {
-			    if (layout_label == page_label) {
-			        page_html = layout_html_list[index];
-				    return false;
-			    }
-		    });
+            page_html = layout_html_dict["404"]
 	    }
 	    parent.html(page_html);
 	}
@@ -90,21 +99,13 @@
 	    	$.each(obj_class_list, function ( index, obj_class ) {
 			var parent = $("." + obj_class);
 			if (parent.length > 0) {
-				parent.html(content_html_list[index]);
+				parent.html(content_html_dict[obj_class]);
 			}
 		});
 	}
 	
-	function return_page_title() {
-	    var page_title = null;
-        $.each(layout_label_list, function ( index, layout_label ) {
-	        if (layout_label == page_label) {
-	            page_title = page_title_list[index];
-		        return false;
-	        }
-        });
-        
-        return page_title;
+	function return_page_title() { 
+        return page_title_dict[page_label];
 	}
 	
 	function load_tablesort() {
@@ -166,6 +167,10 @@
 		edit_timestamp = new Date(parseInt(json.feed.entry[0]["gs$cell"]["$t"]));
 		var now = new Date();		
 		$(".last_edit_footer").html(time_difference(edit_timestamp, now));
+		
+		if (now - then < 10000) {
+		    check_for_content_or_layout_change();
+		}
 	}
 	
 	function pull_edit_timestamp() {
@@ -177,6 +182,62 @@
     }
     
     setInterval(pull_edit_timestamp, 1000 * 5);
+    
+    var old_layout_label_list = [];
+    var old_page_title_dict = {};
+    var old_layout_html_dict = {};
+    var old_obj_class_list = [];
+	var old_content_html_dict = {};	
+    function check_for_content_or_layout_change() {
+        old_layout_label_list = layout_label_list;
+        old_page_title_dict = page_title_dict;
+        old_layout_html_dict = layout_html_dict;
+        old_obj_class_list = obj_class_list;
+        old_content_html_dict = content_html_dict;
+        
+    	$.ajax({
+              url: "https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_layout_page_number }}/public/values?alt=json-in-script&callback=load_layout_data",
+              dataType: "script",
+              cache: false
+        });
+        
+        $.ajax({
+              url: "https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_contents_page_number }}/public/values?alt=json-in-script&callback=load_content_data",
+              dataType: "script",
+              cache: false
+        });
+        
+        if ( 
+            (old_layout_label_list != layout_label_list) ||
+            (old_page_title_dict != page_title_dict) ||
+            (old_layout_html_dict != layout_html_dict)
+        ) {
+            update_different_google_sheet_layout();
+        }
+        
+        if (
+            (old_obj_class_list != obj_class_list) ||
+            (old_content_html_dict != content_html_dict)
+        ) {
+            update_different_google_sheet_content();
+        }
+    }
+    
+    function update_different_google_sheet_layout() {
+        if (page_title_dict[page_label] != old_page_title_dict[page_label]) {
+            document.title = page_title_dict[page_label];
+        }
+        if (layout_html_dict[page_label] != old_layout_html_dict[page_label]) {
+            document.title = page_title_dict[page_label];
+            new_googlesheet_page();
+        }
+    }
+    
+    function update_different_google_sheet_content() {
+            
+            write_only_different_content();
+            
+    }
 	
 	function create_tablefilter() {
 	    $(".tablefilterinput").keyup(function () {
@@ -213,11 +274,43 @@
             "color": "#C0C0C0"
         });
 	
+	}	
+	
+	function write_only_different_content_and_update() {
+	    $.each(obj_class_list, function ( index, obj_class ) {
+			var parent = $("." + obj_class);
+			if ((parent.length > 0) && (content_html_dict[obj_class] != old_content_html_dict[obj_class])) {
+				parent.html(content_html_dict[obj_class]);
+				
+		        if (parent.find('.accordion').length > 0) {
+	                $(document).foundation('accordion');
+	            } 
+	            if (parent.find('table.responsive').length > 0) {
+	                switched=false;
+	                update_responsive_tables();
+	            }
+	            if (parent.find('table').length > 0) {
+                    load_tablesort();
+                }
+                if (parent.find('video,audio').length > 0) {
+                    load_mediaelements();
+                }
+                if (parent.find(".tablefilterinput").length > 0) {
+                    create_tablefilter();
+                } 
+                
+                parent.find('a[href*="page="]').not('a[href*="#"]')
+		            .click(function(event) {
+	                event.preventDefault();
+                    var url = $(this).attr("href");
+                    page_label = url.split("page=")[1].split("&")[0];
+                    History.pushState(null, return_page_title(), url);
+	            });
+			}
+		});
 	}
 	
-	function new_googlesheet_page() {
-	    write_layout();
-	    write_content();
+	function load_relevant_plugins() {
 	    if ($('.accordion').length > 0) {
 	        $(document).foundation('accordion');
 	    } 
@@ -233,7 +326,14 @@
         }
         if ($(".tablefilterinput").length > 0) {
             create_tablefilter();
-        }        
+        } 
+	}
+	
+	function new_googlesheet_page() {
+	    write_layout();
+	    write_content();
+	    load_relevant_plugins();
+	    rebind_only_new_links();
 	}
 	
 	var switched=false;
@@ -283,7 +383,7 @@
 	
 	function initial_rebind_of_links() {
 		$('a[href*="page="].dropdown-link')
-		    .not('.google-sheet-layout a[href*="#"]')
+		    .not('a[href*="#"]')
 		    .click(function(event) {
 		        if (    matchMedia(Foundation.media_queries.small).matches && 
 		                matchMedia(Foundation.media_queries.medium).matches &&
@@ -295,7 +395,7 @@
 		        }      
         });
 		$('a[href*="page="]').not(".dropdown-link")
-		    .not('.google-sheet-layout a[href*="#"]')
+		    .not('a[href*="#"]')
 		    .click(function(event) {
                 event.preventDefault();
                 var url = $(this).attr("href");
@@ -306,7 +406,7 @@
 	
 	function rebind_only_new_links() {
 		$('.google-sheet-layout a[href*="page="]')
-		    .not('.google-sheet-layout a[href*="#"]')
+		    .not('a[href*="#"]')
 		    .click(function(event) {
 	        event.preventDefault();
             var url = $(this).attr("href");
@@ -316,15 +416,14 @@
 	}
 	
 	$(document).ready(function(){
-	    new_googlesheet_page();
 	    initial_rebind_of_links();
+	    new_googlesheet_page();	    
 	    pull_edit_timestamp();
 
         History.Adapter.bind(window,'statechange',function(){
             new_googlesheet_page();
             window.scrollTo(0,0);
-            close_navigation();
-            rebind_only_new_links();
+            close_navigation();            
 		});
 	});
 </script>
