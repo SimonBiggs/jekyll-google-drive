@@ -135,22 +135,22 @@
         var diffSeconds = Math.round((((diffMs % 86400000) % 3600000) % 60000) / 1000);
         
         if (diffDays > 0) {
-            return diffDays.toString() + " days ago"
+            return "Last edited " + diffDays.toString() + " days ago."
         }
         
 	    if (diffHrs > 0) {
-            return diffHrs.toString() + " hours ago"
+            return "Last edited " + diffHrs.toString() + " hours ago."
         }
         
         if (diffMins > 0) {
-            return diffHrs.toString() + " minutes ago"
+            return "Last edited " + diffMins.toString() + " minutes ago."
         }
         
         if (diffSeconds > 0) {
-            return diffHrs.toString() + " seconds ago"
+            return "Last edited " + diffSeconds.toString() + " seconds ago."
         }
         
-        return diffMs.toString() + " milli seconds ago"
+        return "Last edited " + diffMs.toString() + " milli seconds ago."
 	}
 	
 	var edit_timestamp = null;
