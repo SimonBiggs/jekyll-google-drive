@@ -129,28 +129,36 @@
 	
 	function time_difference(then, now) {
 	    var diffMs = (now - then);
-	    var diffDays = Math.round(diffMs / 86400000);
-        var diffHrs = Math.round((diffMs % 86400000) / 3600000);
-        var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-        var diffSeconds = Math.round((((diffMs % 86400000) % 3600000) % 60000) / 1000);
+	    var diffDays = Math.floor(diffMs / 86400000);
+        var diffHrs = Math.floor(diffMs / 3600000);
+        var diffMins = Math.floor(diffMs / 60000);
+        var diffSeconds = Math.floor(diffMs / 1000);
+        
+        var return_string = "Last edited "
         
         if (diffDays > 0) {
-            return "Last edited " + diffDays.toString() + " days ago."
+            return_string += diffDays.toString() + " day"
+            if (diffDays > 1) {return_string += "s"}
+        }        
+	    else if (diffHrs > 0) {\
+	        return_string += diffHrs.toString() + " hour"
+            if (diffHrs > 1) {return_string += "s"}
+        }
+        else if (diffMins > 0) {
+	        return_string += diffMins.toString() + " minute"
+            if (diffMins > 1) {return_string += "s"}
+        }
+        else if (diffSeconds > 0) {
+	        return_string += diffSeconds.toString() + " second"
+            if (diffSeconds > 1) {return_string += "s"}
+        }
+        else {
+	        return_string += diffMs.toString() + " millisecond"
+            if (diffMs > 1) {return_string += "s"}
         }
         
-	    if (diffHrs > 0) {
-            return "Last edited " + diffHrs.toString() + " hours ago."
-        }
-        
-        if (diffMins > 0) {
-            return "Last edited " + diffMins.toString() + " minutes ago."
-        }
-        
-        if (diffSeconds > 0) {
-            return "Last edited " + diffSeconds.toString() + " seconds ago."
-        }
-        
-        return "Last edited " + diffMs.toString() + " milli seconds ago."
+        return_string += " ago."        
+        return return_string
 	}
 	
 	var edit_timestamp = null;
