@@ -119,12 +119,12 @@
 	}
 	
 	function load_mediaelements() {
-	    $.ajax({
-              url: "{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js",
-              dataType: "script",
-              cache: true
-            }).done(function() {
-		        $('video,audio').mediaelementplayer();
+        $.ajax({
+            url: "{{ url }}/assets/mediaelement_js/mediaelement-and-player.min.js",
+            dataType: "script",
+            cache: true
+        }).done(function() {
+		    $('video,audio').mediaelementplayer();
         }); 
 	}
 	
@@ -196,31 +196,31 @@
         old_content_html_dict = content_html_dict;
         
     	$.ajax({
-              url: "https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_layout_page_number }}/public/values?alt=json-in-script&callback=load_layout_data",
-              dataType: "script",
-              cache: false
+            url: "https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_layout_page_number }}/public/values?alt=json-in-script&callback=load_layout_data",
+            dataType: "script",
+            cache: false
+        }).done(function() {
+		    $.ajax({
+                url: "https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_contents_page_number }}/public/values?alt=json-in-script&callback=load_content_data",
+                dataType: "script",
+                cache: false
+            }).done(function() {
+                if ( 
+                    (old_layout_label_list != layout_label_list) ||
+                    (old_page_title_dict != page_title_dict) ||
+                    (old_layout_html_dict != layout_html_dict)
+                ) {
+                    update_different_google_sheet_layout();
+                }
+                
+                if (
+                    (old_obj_class_list != obj_class_list) ||
+                    (old_content_html_dict != content_html_dict)
+                ) {
+                    update_different_google_sheet_content();
+                }
+            });
         });
-        
-        $.ajax({
-              url: "https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_contents_page_number }}/public/values?alt=json-in-script&callback=load_content_data",
-              dataType: "script",
-              cache: false
-        });
-        
-        if ( 
-            (old_layout_label_list != layout_label_list) ||
-            (old_page_title_dict != page_title_dict) ||
-            (old_layout_html_dict != layout_html_dict)
-        ) {
-            update_different_google_sheet_layout();
-        }
-        
-        if (
-            (old_obj_class_list != obj_class_list) ||
-            (old_content_html_dict != content_html_dict)
-        ) {
-            update_different_google_sheet_content();
-        }
     }
     
     function update_different_google_sheet_layout() {
