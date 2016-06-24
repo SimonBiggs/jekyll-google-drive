@@ -285,6 +285,7 @@
 	$(document).ready(function(){
 	    new_googlesheet_page();
 	    initial_rebind_of_links();
+	    pull_edit_timestamp();
 
         History.Adapter.bind(window,'statechange',function(){
             new_googlesheet_page();
