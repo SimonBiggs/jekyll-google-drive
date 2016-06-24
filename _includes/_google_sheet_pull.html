@@ -129,8 +129,10 @@
 	
 	var edit_timestamp = null;
 	function load_edit_timestamp(json) {
-		edit_timestamp = new Date(json.feed.entry[0]["gs$cell"]["$t"]);
-		$(".last_edit_footer").html(edit_timestamp.toISOString());		
+		//edit_timestamp = new Date(json.feed.entry[0]["gs$cell"]["$t"]);
+		//$(".last_edit_footer").html(edit_timestamp.toISOString());		
+		edit_timestamp = json.feed.entry[0]["gs$cell"]["$t"];
+		$(".last_edit_footer").html(edit_timestamp);
 	}
 	
 	function pull_edit_timestamp() {
