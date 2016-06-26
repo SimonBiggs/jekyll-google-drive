@@ -1,6 +1,12 @@
 <link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
 <script src="{{ url }}/assets/showdown/showdown.min.js"></script>
 
+<script language="javascript" type="text/javascript">
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
+</script>
+
 <script type="text/javascript">
 
     var converter = new showdown.Converter();
