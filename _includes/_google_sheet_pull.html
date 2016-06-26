@@ -147,7 +147,7 @@
             ],
             toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
             setup: function(ed) {
-                ed.on('keyup', function(e) {
+                ed.on('change', function(e) {
                     $('.familiesandprograms-kidschurch').html(ed.getContent());
                 });
             }
