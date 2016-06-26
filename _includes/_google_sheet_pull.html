@@ -149,11 +149,6 @@
                     'insertdatetime media table contextmenu paste code'
                 ],
                 toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-            })
-            .html($('.familiesandprograms-kidschurch').html())
-            .keyup(function() {
-                var tinymce_html = $('textarea.page_editor').html();
-                $('.familiesandprograms-kidschurch').html(tinymce_html)
             });            
         });	
 	}
