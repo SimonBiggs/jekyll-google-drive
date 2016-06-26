@@ -150,6 +150,9 @@
                 ed.on('change', function(e) {
                     $('.familiesandprograms-kidschurch').html(ed.getContent());
                 });
+                ed.on('keyup', function(e) {
+                    $('.familiesandprograms-kidschurch').html(ed.getContent());
+                });
             }
         });
         // $(tinymce.get('title').getBody()).html()
