@@ -136,7 +136,6 @@
 	}
 	
 	function load_tinymce_editor() {
-	    $('textarea.page_editor').html("Testing");
         tinymce.init({
             selector: 'textarea.page_editor',
             height: 500,
@@ -145,11 +144,17 @@
                 'searchreplace visualblocks code fullscreen',
                 'insertdatetime media table contextmenu paste code textpattern'
             ],
-            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            setup: function(ed) {
+                ed.onKeyUp.add(function(ed, e) {
+                    $('.familiesandprograms-kidschurch').html(
+                        $(tinymce.get('title').getBody()).html()
+                    );
+                });
         });
-        $('textarea.page_editor').keyup(function() {
-            $('.familiesandprograms-kidschurch').html($('textarea.page_editor').html());
-        });
+        tinymce.get('textarea.page_editor').setContent(
+            $('.familiesandprograms-kidschurch').html()
+        );
 	}
 	
 	function time_difference(then, now) {
