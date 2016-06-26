@@ -138,7 +138,6 @@
 	function load_tinymce_editor() {
 	    $('textarea.page_editor').html($('familiesandprograms-kidschurch').html());
         tinymce.init({
-            script_url: '{{ url }}/assets/tinymce/tinymce.min.js',
             selector: 'textarea.page_editor',
             height: 500,
             plugins: [
@@ -146,7 +145,7 @@
                 'searchreplace visualblocks code fullscreen',
                 'insertdatetime media table contextmenu paste code'
             ],
-            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code'
         });
         $('textarea.page_editor').keyup(function() {
             $('.familiesandprograms-kidschurch').html($('textarea.page_editor').html());
