@@ -136,6 +136,7 @@
 	}
 	
 	function load_tinymce_editor() {
+	    $('textarea.page_editor').html("Testing");
         tinymce.init({
             selector: 'textarea.page_editor',
             height: 500,
@@ -145,7 +146,7 @@
                 'insertdatetime media table contextmenu paste code textpattern'
             ],
             toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-        }).setContent($('familiesandprograms-kidschurch').html());
+        });
         $('textarea.page_editor').keyup(function() {
             $('.familiesandprograms-kidschurch').html($('textarea.page_editor').html());
         });
