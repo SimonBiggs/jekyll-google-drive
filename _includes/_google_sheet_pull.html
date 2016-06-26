@@ -142,7 +142,7 @@
         }).done(function() {
             $('textarea.page_editor').html($('familiesandprograms-kidschurch').html());
             tinymce.init({
-                script_url: '{{ url }}/assets/tinymce/tinymce.min.js'
+                script_url: '{{ url }}/assets/tinymce/tinymce.min.js',
                 selector: 'textarea.page_editor',
                 height: 500,
                 plugins: [
