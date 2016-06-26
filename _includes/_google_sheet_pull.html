@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
 <script src="{{ url }}/assets/showdown/showdown.min.js"></script>
-<script src="{{ url }}/assets/tinymce/jquery.tinymce.min.js"></script>
 
 <script language="javascript" type="text/javascript">
   function resizeIframe(obj) {
@@ -133,6 +132,30 @@
         }).done(function() {
 		    $('video,audio').mediaelementplayer();
         }); 
+	}
+	
+	function load_tinymce_editory() {
+        $.ajax({
+            url: "{{ url }}/assets/tinymce/jquery.tinymce.min.js",
+            dataType: "script",
+            cache: true
+        }).done(function() {
+		    $('textarea.page_editor').tinymce({
+		        script_url: "{{ url }}/assets/tinymce/jquery.tinymce.min.js",
+                height: 500,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste code'
+                ],
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+            })
+            .html($('.familiesandprograms-kidschurch').html())
+            .keyup(function() {
+                var tinymce_html = this.html();
+                $('.familiesandprograms-kidschurch').html(tinymce_html)
+            });            
+        });	
 	}
 	
 	function time_difference(then, now) {
@@ -346,6 +369,10 @@
         if ($(".tablefilterinput").length > 0) {
             create_tablefilter();
         } 
+        if ($('textarea.page_editor').length > 0) {
+            load_tinymce_editory();
+        } 
+        
 	}
 	
 	function new_googlesheet_page() {
@@ -449,19 +476,3 @@
 <script src="http://browserstate.github.io/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 <script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_layout_page_number }}/public/values?alt=json-in-script&callback=load_layout_data"></script>
 <script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_contents_page_number }}/public/values?alt=json-in-script&callback=load_content_data"></script>
-
-<script>
-
-    tinymce.init({
-      selector: 'textarea',
-      height: 500,
-      plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table contextmenu paste code'
-      ],
-      toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-    });
-
-</script>
-
