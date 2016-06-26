@@ -134,7 +134,7 @@
         }); 
 	}
 	
-	function load_tinymce_editory() {
+	function load_tinymce_editor() {
         $.ajax({
             url: "{{ url }}/assets/tinymce/tinymce.min.js",
             dataType: "script",
@@ -150,9 +150,10 @@
                 'insertdatetime media table contextmenu paste code'
             ],
             toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-            }).keyup(function() {
+            })
+            $('textarea.page_editor').keyup(function() {
                 $('.familiesandprograms-kidschurch').html($('textarea.page_editor').html());
-            });       
+            });
         });	
 	}
 	
@@ -368,7 +369,7 @@
             create_tablefilter();
         } 
         if ($('textarea.page_editor').length > 0) {
-            load_tinymce_editory();
+            load_tinymce_editor();
         } 
         
 	}
