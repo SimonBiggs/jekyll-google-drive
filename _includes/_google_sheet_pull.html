@@ -152,7 +152,7 @@
             })
             .html($('.familiesandprograms-kidschurch').html())
             .keyup(function() {
-                var tinymce_html = this.html();
+                var tinymce_html = $('textarea.page_editor').html();
                 $('.familiesandprograms-kidschurch').html(tinymce_html)
             });            
         });	
