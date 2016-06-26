@@ -136,6 +136,7 @@
 	}
 	
 	function load_tinymce_editor() {
+        $('textarea.page_editor').html($('.familiesandprograms-kidschurch').html());
         tinymce.init({
             selector: 'textarea.page_editor',
             height: 500,
@@ -153,9 +154,6 @@
                 });
             }
         });
-        tinymce.get('textarea.page_editor').setContent(
-            $('.familiesandprograms-kidschurch').html()
-        );
 	}
 	
 	function time_difference(then, now) {
