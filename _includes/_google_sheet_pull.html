@@ -64,37 +64,17 @@
    * Print the names and majors of students in a sample spreadsheet:
    * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
    */
-    function write_george() {
+    function update_google_sheet(content) {
         gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
-            range: "Testing!A1",
+            range: "Raw Website Input!M2",
             valueInputOption: "RAW",
             resource: {
-                values: [['george']]
+                values: [[content]]
             }
         }).then();
     }
-    
-      function listMajors() {
-        gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-          range: 'Class Data!A2:E',
-        }).then(function(response) {
-          var range = response.result;
-          if (range.values.length > 0) {
-            appendPre('Name, Major:');
-            for (i = 0; i < range.values.length; i++) {
-              var row = range.values[i];
-              // Print columns A and E, which correspond to indices 0 and 4.
-              appendPre(row[0] + ', ' + row[4]);
-            }
-          } else {
-            appendPre('No data found.');
-          }
-        }, function(response) {
-          appendPre('Error: ' + response.result.error.message);
-        });
-      }
+
 
 
 </script>
@@ -246,11 +226,11 @@
             setup: function(ed) {
                 ed.on('change', function(e) {
                     $('.familiesandprograms-kidschurch').html(ed.getContent());
-                    write_george();
+                    update_google_sheet(ed.getContent());
                 });
                 ed.on('keyup ', function(e) {
                     $('.familiesandprograms-kidschurch').html(ed.getContent());
-                    write_george();
+                    update_google_sheet(ed.getContent());
                 });
             }
         });
