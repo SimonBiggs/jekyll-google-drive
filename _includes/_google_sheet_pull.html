@@ -68,7 +68,9 @@
         var google_sheet = gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
             range: "Testing!A1",
-            values: [['george']]
+            body: {
+                values: [['george']]
+            }
         });
         
         google_sheet.then()
