@@ -69,12 +69,9 @@
             spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
             range: "Testing!A1",
             valueInputOption: 'RAW',
-        }).then(function(response) {
-          var range = response.result;
-          range.values = [['TEST']]
-        }, function(response) {
-          alert('Error: ' + response.result.error.message);
         });
+        
+        sheet_update.request('TEST');
     }
     
       function listMajors() {
