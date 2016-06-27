@@ -57,14 +57,14 @@
   function loadSheetsApi() {
     var discoveryUrl =
         'https://sheets.googleapis.com/$discovery/rest?version=v4';
-    gapi.client.load(discoveryUrl).then(place_holder);
+    gapi.client.load(discoveryUrl);
   }
 
   /**
    * Print the names and majors of students in a sample spreadsheet:
    * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
    */
-    function place_holder() {
+    function write_george() {
         gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
             range: "Testing!A1",
@@ -72,7 +72,7 @@
             resource: {
                 values: [['george']]
             }
-        });
+        }).then();
     }
     
       function listMajors() {
@@ -246,9 +246,11 @@
             setup: function(ed) {
                 ed.on('change', function(e) {
                     $('.familiesandprograms-kidschurch').html(ed.getContent());
+                    write_george();
                 });
                 ed.on('keyup ', function(e) {
                     $('.familiesandprograms-kidschurch').html(ed.getContent());
+                    write_george();
                 });
             }
         });
