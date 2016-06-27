@@ -57,7 +57,7 @@
   function loadSheetsApi() {
     var discoveryUrl =
         'https://sheets.googleapis.com/$discovery/rest?version=v4';
-    gapi.client.load(discoveryUrl);
+    gapi.client.load(discoveryUrl).then();
   }
 
   /**
