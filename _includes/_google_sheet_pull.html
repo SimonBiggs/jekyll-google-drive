@@ -452,6 +452,19 @@
 		});
 	}
 	
+	function toggle_editor() {
+	    $('.editor').toggle();
+	}
+	
+	function set_up_editable() {
+	    $.ajax({
+            url: "https://apis.google.com/js/client.js?onload=checkAuth",
+            dataType: "script",
+            cache: true
+        });
+	    $('.editable').dblclick(toggle_editor());
+	}
+	
 	function load_relevant_plugins() {
 	    if ($('.accordion').length > 0) {
 	        $(document).foundation('accordion');
@@ -471,7 +484,10 @@
         } 
         if ($('textarea.page_editor').length > 0) {
             load_tinymce_editor();
-        } 
+        }
+        if ($('.editable').length > 0) {
+            set_up_editable();
+        }
         
 	}
 	
