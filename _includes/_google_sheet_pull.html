@@ -106,6 +106,13 @@
             } else {
                 error = true;
             }
+        }, function(response) {
+            console.log(JSON.stringify(response));
+            if (response.result["error"] == undefined) {
+                error = false;
+            } else {
+                error = true;
+            }
         });
         
         return error
