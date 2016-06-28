@@ -11,7 +11,7 @@ googlesheetlayout: home
 ---
 
 <div class="row t60">
-    <div class="editor" style="display: none">
+    <div class="editor large-12 columns" style="display: none">
         <div id="authorize-div" style="display: none">
             <div class="large-12 columns">
                 <button style="width:100%" class="note button radius" id="authorize-button" onclick="handleAuthClick(event)">
