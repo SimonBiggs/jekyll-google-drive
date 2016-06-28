@@ -15,7 +15,7 @@ googlesheetlayout: home
         <div class="editor large-12 columns" style="display: none">
             <div id="authorize-div">
                 <div class="large-12 columns">
-                    <button style="width:100%" class="note button radius" id="authorize-button" onclick="handleAuthClick(event)">
+                    <button type="button" style="width:100%" class="note button radius" id="authorize-button" onclick="handleAuthClick(event)">
                         CLICK ME <br>
                         Before you can edit this page you need to authorise this
                         website to edit your personal Google Sheets with a Google 
