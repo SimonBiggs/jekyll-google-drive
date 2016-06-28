@@ -28,6 +28,17 @@ googlesheetlayout: home
                 <textarea style="height:250" class="page_editor"></textarea>
             </div>
         </div>
+        <div id="noaccess-div" style="display: none">
+            <div data-alert class="alert-box info radius">
+                When attempting to edit the website spreadsheet at 
+                <a href="https://docs.google.com/spreadsheets/d/{{ site.google_sheet_id }}/edit">
+                    https://docs.google.com/spreadsheets/d/{{ site.google_sheet_id }}/edit
+                </a>
+                an error was returned. Does the signed in Google account have 
+                the permission to edit that spreadsheet? If not and you believe
+                you should please <a href="/?page=aboutus-contact">contact us</a>.
+            </div>
+        </div>
     </div>
 </div>
 
