@@ -26,7 +26,7 @@ googlesheetlayout: home
             </div>
             <div id="editor-div" style="display: none">
                 <div class="large-12 columns">
-                    <textarea style="height:250" class="page_editor"></textarea>
+                    <textarea id="tinemce_page_editor" style="height:250" class="page_editor"></textarea>
                 </div>
             </div>
             <div id="noaccess-div" style="display: none">

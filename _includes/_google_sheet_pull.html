@@ -246,7 +246,7 @@
             toolbar: 'insertfile save undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
             menubar: false,
             save_onsavecallback: function () { 
-                var content = $(tinymce.get('title').getBody()).html();
+                var content = $(tinymce.get('tinemce_page_editor').getBody()).html();
                 $('.familiesandprograms-kidschurch').html(content);
                 update_google_sheet(content);
             }
