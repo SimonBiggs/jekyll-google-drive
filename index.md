@@ -10,4 +10,23 @@ googlesheetpull: true
 googlesheetlayout: home
 ---
 
+<div class="row t60">
+    <div class="editor" style="display: none">
+        <div id="authorize-div" style="display: none">
+            <div class="large-12 columns">
+                <button style="width:100%" class="note button radius" id="authorize-button" onclick="handleAuthClick(event)">
+                    Before you can edit this page you need to authorise this
+                    website to edit your Google Sheets with a google account
+                    that has been given access to the website spreadsheet.
+                </button>
+            </div>
+        </div>
+        <div id="editor-div" style="display: none">
+            <div class="large-12 columns">
+                <textarea style="height:250" class="page_editor"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="google-sheet-layout"></div>
