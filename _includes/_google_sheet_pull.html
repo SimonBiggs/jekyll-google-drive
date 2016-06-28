@@ -64,7 +64,7 @@
    */
     function update_google_sheet(content) {
         gapi.client.sheets.spreadsheets.values.update({
-            spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
+            spreadsheetId: '{{ site.google_sheet_id }}',
             range: "'Raw Website Input'!M3",
             valueInputOption: "RAW",
             resource: {
@@ -79,7 +79,7 @@
         var date_obj = new Date();
         var time_stamp = date_obj.getTime();
         gapi.client.sheets.spreadsheets.values.update({
-            spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
+            spreadsheetId: '{{ site.google_sheet_id }}',
             range: "'Last Edit Time Stamp'!A1",
             valueInputOption: "RAW",
             resource: {
@@ -94,6 +94,18 @@
         });
     }
 
+    function update_edit_time() {
+        var date_obj = new Date();
+        var time_stamp = date_obj.getTime();
+        gapi.client.sheets.spreadsheets.values.update({
+            spreadsheetId: '{{ site.google_sheet_id }}',
+            range: "'Last Edit Time Stamp'!A1",
+            valueInputOption: "RAW",
+            resource: {
+                values: [[time_stamp]]
+            }
+        }).then();
+    }
 
 
 </script>
@@ -249,9 +261,9 @@
                 var content = $(tinymce.get('tinemce_page_editor').getBody()).html();
                 $('.familiesandprograms-kidschurch').html(content);
                 update_google_sheet(content);
+                update_edit_time();
             }
         });
-        // $(tinymce.get('title').getBody()).html()
 	}
 	
 	function time_difference(then, now) {
