@@ -65,7 +65,7 @@
     function update_google_sheet(content) {
         gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
-            range: "Raw Website Input!M2",
+            range: "'Raw Website Input'!M2",
             valueInputOption: "RAW",
             resource: {
                 values: [[content]]
@@ -80,7 +80,7 @@
         var time_stamp = date_obj.getTime();
         gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
-            range: "Last Edit Time Stamp!A1",
+            range: "'Last Edit Time Stamp'!A1",
             valueInputOption: "RAW",
             resource: {
                 values: [[time_stamp]]
