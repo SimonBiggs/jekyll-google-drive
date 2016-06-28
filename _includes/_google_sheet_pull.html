@@ -65,7 +65,7 @@
     function update_google_sheet(content) {
         gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
-            range: "'Raw Website Input'!M2",
+            range: "'Raw Website Input'!M3",
             valueInputOption: "RAW",
             resource: {
                 values: [[content]]
