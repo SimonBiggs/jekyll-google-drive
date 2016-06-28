@@ -491,6 +491,8 @@
 	}
 	
 	function new_googlesheet_page() {
+	    var editorDiv = document.getElementById('editor-div');
+	    editorDiv.style.display = 'none';
 	    write_layout();
 	    write_content();
 	    load_relevant_plugins();
