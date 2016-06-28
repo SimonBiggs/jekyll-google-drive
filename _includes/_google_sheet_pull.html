@@ -245,15 +245,10 @@
             ],
             toolbar: 'insertfile save undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
             menubar: false,
-            setup: function(ed) {
-                ed.on('change', function(e) {
-                    $('.familiesandprograms-kidschurch').html(ed.getContent());
-                    update_google_sheet(ed.getContent());
-                });
-                ed.on('keyup ', function(e) {
-                    $('.familiesandprograms-kidschurch').html(ed.getContent());
-                    update_google_sheet(ed.getContent());
-                });
+            save_onsavecallback: function () { 
+                var content = $(tinymce.get('title').getBody()).html();
+                $('.familiesandprograms-kidschurch').html(content);
+                update_google_sheet(content);
             }
         });
         // $(tinymce.get('title').getBody()).html()
