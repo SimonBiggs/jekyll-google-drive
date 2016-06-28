@@ -51,17 +51,10 @@
    * Load Sheets API client library.
    */
     function loadSheetsApi() {
-        var editorDiv = document.getElementById('editor-div');
-        var noaccessDiv = document.getElementById('noaccess-div');
         var discoveryUrl =
         'https://sheets.googleapis.com/$discovery/rest?version=v4';
         gapi.client.load(discoveryUrl).then(function () {
-            var error = update_edit_time();
-            if (error) {
-                noaccessDiv.style.display = 'inline';
-            } else {
-                editorDiv.style.display = 'inline';
-            }
+            check_for_ability_to_edit();
         });
     }
 
@@ -80,10 +73,11 @@
         }).then();
     }
     
-    function update_edit_time() {
+    function check_for_ability_to_edit() {
+        var editorDiv = document.getElementById('editor-div');
+        var noaccessDiv = document.getElementById('noaccess-div');
         var date_obj = new Date();
         var time_stamp = date_obj.getTime();
-        var error = null;
         gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
             range: "Last Edit Time Stamp!A1",
@@ -93,21 +87,11 @@
             }
         }).then(function(response) {
             console.log(JSON.stringify(response));
-            if (response.result["error"] == undefined) {
-                error = false;
-            } else {
-                error = true;
-            }
+            editorDiv.style.display = 'inline';            
         }, function(response) {
             console.log(JSON.stringify(response));
-            if (response.result["error"] == undefined) {
-                error = false;
-            } else {
-                error = true;
-            }
+            noaccessDiv.style.display = 'inline';
         });
-        console.log(JSON.stringify(error));
-        return error
     }
 
 
