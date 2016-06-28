@@ -10,7 +10,7 @@ googlesheetpull: true
 googlesheetlayout: home
 ---
 
-<div class="row t60">
+<div class="row t30 b30">
     <div class="editor large-12 columns" style="display: none">
         <div id="authorize-div" style="display: none">
             <div class="large-12 columns">

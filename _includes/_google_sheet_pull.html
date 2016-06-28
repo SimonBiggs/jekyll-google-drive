@@ -100,9 +100,11 @@
                 values: [[time_stamp]]
             }
         }).then(function(response) {
-            error = false;
-        }, function(response) {
-            error = true;
+            if (response.result.error == undefined) {
+                error = false;
+            } else {
+                error = true;
+            }
         });
         
         return error
