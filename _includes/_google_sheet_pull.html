@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
-<script src="{{ url }}/assets/showdown/showdown.min.js"></script>
+<!-- <script src="{{ url }}/assets/showdown/showdown.min.js"></script> -->
 <script src="{{ url }}/assets/tinymce/tinymce.min.js"></script>
 
 <script type="text/javascript">
@@ -124,7 +124,7 @@
 
 <script type="text/javascript">
 
-    var converter = new showdown.Converter();
+    // var converter = new showdown.Converter();
 
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -197,8 +197,9 @@
 				content_reference_list.push(cell_contents);
 			}
 			if (cell.row == 3) {
-				content_html_list.push(converter.makeHtml(cell_contents));
-			}		
+				// content_html_list.push(converter.makeHtml(cell_contents));
+				content_html_list.push(cell_contents);
+			}
 		});
 		
 		$.each(obj_class_list, function ( index, obj_class ) {
