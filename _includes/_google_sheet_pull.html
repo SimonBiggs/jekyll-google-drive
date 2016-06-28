@@ -484,6 +484,7 @@
 	        );
 	        $('.editor').slideToggle();
 	    } else {
+	        save_editor_content();
 	        if (current_editing_content == double_clicked_label) {
 	            current_editing_content = null;
 	            $('.editor').slideToggle();
