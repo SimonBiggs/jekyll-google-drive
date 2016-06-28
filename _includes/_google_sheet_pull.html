@@ -505,7 +505,7 @@
 	
 	function set_up_editable() {
 	    $('.editable').dblclick(function() {
-	        var classList = this.attr('class').split(/\s+/);
+	        var classList = $(this).attr('class').split(/\s+/);
 	        trigger_editor(classList);
 	    });
 	}
