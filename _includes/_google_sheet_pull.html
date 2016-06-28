@@ -68,21 +68,14 @@
    * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
    */
     function update_google_sheet(content) {
-        var authorizeWarning = document.getElementById('authorize-warning');
-        if (gapi.client.sheets == undefined) {            
-            authorizeWarning.style.display = 'inline';
-        }
-        else {
-            authorizeWarning.style.display = 'none';
-            gapi.client.sheets.spreadsheets.values.update({
-                spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
-                range: "Raw Website Input!M2",
-                valueInputOption: "RAW",
-                resource: {
-                    values: [[content]]
-                }
-            }).then();
-        }
+        gapi.client.sheets.spreadsheets.values.update({
+            spreadsheetId: '1f1QHvgeESZ6-Dv-tGunOyrbsG6Fwc1V7BN2i6ffXwBU',
+            range: "Raw Website Input!M2",
+            valueInputOption: "RAW",
+            resource: {
+                values: [[content]]
+            }
+        }).then();
     }
 
 
