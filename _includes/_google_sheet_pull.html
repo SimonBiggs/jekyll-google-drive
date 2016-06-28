@@ -63,9 +63,11 @@
    * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
    */
     function update_google_sheet(content) {
+        var range_value = content_reference_dict[current_editing_content];
+        
         gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: '{{ site.google_sheet_id }}',
-            range: "'Raw Website Input'!M3",
+            range: range_value,
             valueInputOption: "RAW",
             resource: {
                 values: [[content]]
@@ -174,13 +176,15 @@
 	}
 	
 	var obj_class_list = [];
-	var content_html_dict = {};		
+	var content_html_dict = {};
+	var content_reference_dict = {};	
 	function load_content_data(json) {
 	    obj_class_list = [];
 	    content_html_dict = {};	
 	    
 		var content_data_list = json.feed.entry;
 		var content_html_list = [];
+		var content_reference_list = [];
 		
 		$.each(content_data_list, function ( index, content_data ) {
 			var cell = content_data["gs$cell"];
@@ -189,6 +193,9 @@
 			if (cell.row == 1) {
 				obj_class_list.push(cell_contents);
 			}
+			if (cell.row == 2) {
+				content_reference_list.push(cell_contents);
+			}
 			if (cell.row == 3) {
 				content_html_list.push(converter.makeHtml(cell_contents));
 			}		
@@ -196,6 +203,7 @@
 		
 		$.each(obj_class_list, function ( index, obj_class ) {
 			content_html_dict[obj_class] = content_html_list[index];
+			content_reference_dict[obj_class] = content_reference_list[index];
 		});
 	}
 	
@@ -248,7 +256,6 @@
 	}
 	
 	function load_tinymce_editor() {
-        $('textarea.page_editor').html($('.familiesandprograms-kidschurch').html());
         tinymce.init({
             selector: 'textarea.page_editor',
             height: 250,
@@ -257,11 +264,8 @@
             ],
             toolbar: 'insertfile save undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
             menubar: false,
-            save_onsavecallback: function () { 
-                var content = $(tinymce.get('tinemce_page_editor').getBody()).html();
-                $('.familiesandprograms-kidschurch').html(content);
-                update_google_sheet(content);
-                update_edit_time();
+            save_onsavecallback: function () {
+                save_editor_content();
             }
         });
 	}
@@ -463,13 +467,46 @@
 		});
 	}
 	
-	function trigger_editor() {
-	    $('.editor').slideToggle();
+	var current_editing_content = null;
+	function trigger_editor(double_clicked_object) {
+	    var classList = double_clicked_object.attr('class').split(/\s+/);
+	    var double_clicked_label = null;
+	    $.each(classList, function(index, item) {
+            if (content_html_dict[item] != undefined) {
+                double_clicked_label = item;
+                return false;
+            }
+        });
+	    
+	    if ($('.editor').is(':hidden')) {
+	        current_editing_content = double_clicked_label;
+	        $(tinymce.get('tinemce_page_editor').getBody()).html(
+	            $('.' + current_editing_content).html()
+	        );
+	        $('.editor').slideToggle();
+	    } else {
+	        if (current_editing_content == double_clicked_label) {
+	            current_editing_content = null;
+	            $('.editor').slideToggle();
+	        } else {
+    	        current_editing_content = double_clicked_label;
+	            $(tinymce.get('tinemce_page_editor').getBody()).html(
+	                $('.' + current_editing_content).html()
+	            );
+	        }
+	    }
+	}
+	
+	function save_editor_content() {
+        var content = $(tinymce.get('tinemce_page_editor').getBody()).html();
+        $('.' + current_editing_content).html(content);
+        update_google_sheet(content);
+        update_edit_time();
 	}
 	
 	function set_up_editable() {
 	    $('.editable').dblclick(function() {
-	        trigger_editor();
+	        trigger_editor(this);
 	    });
 	}
 	
