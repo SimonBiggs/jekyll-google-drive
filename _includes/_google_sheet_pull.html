@@ -100,7 +100,7 @@
                 values: [[time_stamp]]
             }
         }).then(function(response) {
-            if (response.result.error == undefined) {
+            if (response.result["error"] == undefined) {
                 error = false;
             } else {
                 error = true;
