@@ -468,8 +468,7 @@
 	}
 	
 	var current_editing_content = null;
-	function trigger_editor(double_clicked_object) {
-	    var classList = double_clicked_object.attr('class').split(/\s+/);
+	function trigger_editor(classList) {
 	    var double_clicked_label = null;
 	    $.each(classList, function(index, item) {
             if (content_html_dict[item] != undefined) {
@@ -506,7 +505,8 @@
 	
 	function set_up_editable() {
 	    $('.editable').dblclick(function() {
-	        trigger_editor(this);
+	        var classList = this.attr('class').split(/\s+/);
+	        trigger_editor(classList);
 	    });
 	}
 	
