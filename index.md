@@ -31,14 +31,10 @@ googlesheetlayout: home
         <div id="noaccess-div" style="display: none">
             <div data-alert class="alert-box info radius">
                 When attempting to edit the 
-                <a href="https://docs.google.com/spreadsheets/d/{{ site.google_sheet_id }}/edit">
-                   website spreadsheet
-                </a>
+                <a href="https://docs.google.com/spreadsheets/d/{{ site.google_sheet_id }}/edit">website spreadsheet</a>
                 an error was returned. Does your Google account which is 
                 currently signed in have sufficient permissions to edit the
-                <a href="https://docs.google.com/spreadsheets/d/{{ site.google_sheet_id }}/edit">
-                   website spreadsheet
-                </a>? 
+                <a href="https://docs.google.com/spreadsheets/d/{{ site.google_sheet_id }}/edit">website spreadsheet</a>? 
                 If not and you believe you should please 
                 <a href="/?page=aboutus-contact">contact us</a>.
             </div>
