@@ -537,9 +537,16 @@
         
 	}
 	
+	function close_editor() {
+	    if ($('.editor').is(':visible')) {
+	        save_editor_content();
+	        current_editing_content = null;
+	        $('.editor').toggle();
+	    }
+	}
+	
 	function new_googlesheet_page() {
-	    var editorDiv = document.getElementById('editor-div');
-	    editorDiv.style.display = 'none';
+        close_editor();
 	    write_layout();
 	    write_content();
 	    load_relevant_plugins();
