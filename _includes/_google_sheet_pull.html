@@ -2,6 +2,8 @@
 <script src="{{ url }}/assets/showdown/showdown.min.js"></script>
 <script src="{{ url }}/assets/tinymce/tinymce.min.js"></script>
 
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+
 <script type="text/javascript">
   // Your Client ID can be retrieved from your project in the Google
   // Developer Console, https://console.developers.google.com
@@ -94,6 +96,8 @@
     obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
   }
 </script>
+
+
 
 <script type="text/javascript">
 
@@ -446,11 +450,6 @@
 	}
 	
 	function set_up_editable() {
-	    $.ajax({
-            url: "https://apis.google.com/js/client.js?onload=checkAuth",
-            dataType: "script",
-            cache: true
-        });
 	    $('.editable').dblclick(function() {
 	        toggle_editor();
 	    });
