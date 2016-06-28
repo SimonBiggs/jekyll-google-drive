@@ -17,8 +17,9 @@ googlesheetlayout: home
                 <button style="width:100%" class="note button radius" id="authorize-button" onclick="handleAuthClick(event)">
                     CLICK ME <br>
                     Before you can edit this page you need to authorise this
-                    website to edit your Google Sheets with a google account
-                    that has been given access to the website spreadsheet.
+                    website to edit your personal Google Sheets with a Google 
+                    account that has been given access to the website 
+                    spreadsheet.
                 </button>
             </div>
         </div>
