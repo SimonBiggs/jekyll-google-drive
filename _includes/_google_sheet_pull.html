@@ -258,19 +258,40 @@
         }); 
 	}
 	
+	function load_tinymce_editor_mobile() {
+
+	}
+	
 	function load_tinymce_editor() {
-        tinymce.init({
-            selector: 'textarea.page_editor',
-            height: 250,
-            plugins: [
-                'autolink lists save fullscreen paste textpattern'
-            ],
-            toolbar: 'insertfile save undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
-            menubar: false,
-            save_onsavecallback: function () {
-                save_editor_content();
-            }
-        });
+	    if (Foundation.utils.is_small_only()) {
+            tinymce.init({
+                selector: 'textarea.page_editor',
+                height: 250,
+                plugins: [
+                    'autolink lists save fullscreen paste textpattern'
+                ],
+                toolbar: 'insertfile save undo | fullscreen | bold italic | bullist',
+                menubar: false,
+                save_onsavecallback: function () {
+                    save_editor_content();
+                }
+            });
+        }	
+	    if (Foundation.utils.is_medium_up()) {
+            tinymce.init({
+                selector: 'textarea.page_editor',
+                height: 250,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste code'
+                ],
+                toolbar: 'insertfile save insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                save_onsavecallback: function () {
+                    save_editor_content();
+                }
+            });
+        }
 	}
 	
 	function time_difference(then, now) {
