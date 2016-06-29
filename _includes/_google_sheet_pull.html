@@ -84,7 +84,7 @@
         var time_stamp = date_obj.getTime();
         gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: '{{ site.google_sheet_id }}',
-            range: "'Last Edit Time Stamp'!A1",
+            range: "'Authentication Test'!A1",
             valueInputOption: "RAW",
             resource: {
                 values: [[time_stamp]]
