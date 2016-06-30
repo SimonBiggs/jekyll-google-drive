@@ -279,10 +279,6 @@
         }); 
 	}
 	
-	function load_tinymce_editor_mobile() {
-
-	}
-	
 	function load_tinymce_editor() {
 	    if (Foundation.utils.is_small_only()) {
             tinymce.init({
@@ -577,9 +573,6 @@
         if ($(".tablefilterinput").length > 0) {
             create_tablefilter();
         } 
-        if ($('textarea.page_editor').length > 0) {
-            load_tinymce_editor();
-        }
         if ($('.editable').length > 0) {
             set_up_editable();
         }
@@ -685,6 +678,7 @@
 	    initial_rebind_of_links();
 	    new_googlesheet_page();	    
 	    pull_edit_timestamp();
+	    load_tinymce_editor();
 
         History.Adapter.bind(window,'statechange',function(){
             new_googlesheet_page();
