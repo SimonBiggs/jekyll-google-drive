@@ -19,9 +19,10 @@
 
 -->
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
 <!-- <script src="{{ url }}/assets/showdown/showdown.min.js"></script> -->
-<script src="{{ url }}/assets/tinymce/tinymce.min.js"></script>
+<!-- <script src="{{ url }}/assets/tinymce/tinymce.min.js"></script> -->
 
 <script type="text/javascript">
   // Your Client ID can be retrieved from your project in the Google
@@ -280,35 +281,42 @@
 	}
 	
 	function load_tinymce_editor() {
-	    if (Foundation.utils.is_small_only()) {
-            tinymce.init({
-                selector: 'textarea.page_editor',
-                height: 250,
-                plugins: [
-                    'autolink lists save fullscreen paste textpattern'
-                ],
-                toolbar: 'insertfile save undo | fullscreen | bold italic | bullist',
-                menubar: false,
-                save_onsavecallback: function () {
-                    save_editor_content();
-                }
-            });
-        }	
-	    if (Foundation.utils.is_medium_up()) {
-            tinymce.init({
-                selector: 'textarea.page_editor',
-                height: 250,
-                plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table contextmenu paste code textpattern save'
-                ],
-                toolbar: 'insertfile save insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                save_onsavecallback: function () {
-                    save_editor_content();
-                }
-            });
-        }
+	      $.ajax({
+            url: "{{ url }}/assets/tinymce/tinymce.min.js",
+            dataType: "script",
+            cache: true
+        }).done(function() {
+            if (Foundation.utils.is_small_only()) {
+                tinymce.init({
+                    selector: 'textarea.page_editor',
+                    height: 250,
+                    plugins: [
+                        'autolink lists save fullscreen paste textpattern'
+                    ],
+                    toolbar: 'insertfile save undo | fullscreen | bold italic | bullist',
+                    menubar: false,
+                    save_onsavecallback: function () {
+                        save_editor_content();
+                    }
+                });
+            }	
+	        if (Foundation.utils.is_medium_up()) {
+                tinymce.init({
+                    selector: 'textarea.page_editor',
+                    height: 250,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table contextmenu paste code textpattern save'
+                    ],
+                    toolbar: 'insertfile save insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                    save_onsavecallback: function () {
+                        save_editor_content();
+                    }
+                });
+            }
+        }); 
+	    
 	}
 	
 	function time_difference(then, now) {
