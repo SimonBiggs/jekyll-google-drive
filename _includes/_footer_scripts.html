@@ -1,9 +1,8 @@
-
-	{% if page.googlesheetpull == true %}
-
-		{% include _google_sheet_pull.html %}
-	
-    	{% endif %}
+{% if page.mediaplayer == true %}
+<script>
+$('audio,video').mediaelementplayer();
+</script>
+{% endif %}
 
 
 <script src="{{ site.url }}{{ site.baseurl }}/assets/js/javascript.min.js"></script>
