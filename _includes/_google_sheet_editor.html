@@ -1,0 +1,228 @@
+<!--
+
+    Dynamically builds and edits website based upon a Google Spreadsheet.
+    Copyright (C) 2016 Simon Biggs
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+-->
+
+
+<script type="text/javascript">
+  // Your Client ID can be retrieved from your project in the Google
+  // Developer Console, https://console.developers.google.com
+  var CLIENT_ID = '432922101143-oljj6fs0nd08eebsspkhvdhks372lk0d.apps.googleusercontent.com';
+
+  var SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
+
+  /**
+   * Check if current user has authorized this application.
+   */
+  function checkAuth() {
+    gapi.auth.authorize(
+      {
+        'client_id': CLIENT_ID,
+        'scope': SCOPES.join(' '),
+        'immediate': true
+      }, handleAuthResult);
+  }
+
+  /**
+   * Handle response from authorization server.
+   *
+   * @param {Object} authResult Authorization result.
+   */
+    function handleAuthResult(authResult) {
+        var authorizeDiv = document.getElementById('authorize-div');
+        if (authResult && !authResult.error) {
+            // Hide auth UI, then load client library.
+            authorizeDiv.style.display = 'none';
+            loadSheetsApi();
+        } else {
+            authorizeDiv.style.display = 'inline';
+        }
+    }
+
+  /**
+   * Initiate auth flow in response to user clicking authorize button.
+   *
+   * @param {Event} event Button click event.
+   */
+  function handleAuthClick(event) {
+    gapi.auth.authorize(
+      {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+      handleAuthResult);
+    return false;
+  }
+
+  /**
+   * Load Sheets API client library.
+   */
+    function loadSheetsApi() {
+        var discoveryUrl =
+        'https://sheets.googleapis.com/$discovery/rest?version=v4';
+        gapi.client.load(discoveryUrl).then(function () {
+            check_for_ability_to_edit();
+        });
+    }
+
+  /**
+   * Print the names and majors of students in a sample spreadsheet:
+   * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+   */
+    function update_google_sheet(content) {
+        var range_value = content_reference_dict[current_editing_content];
+        
+        gapi.client.sheets.spreadsheets.values.update({
+            spreadsheetId: '{{ site.google_sheet_id }}',
+            range: range_value,
+            valueInputOption: "RAW",
+            resource: {
+                values: [[content]]
+            }
+        }).then();
+    }
+    
+    var allowed_to_edit = false;
+    function check_for_ability_to_edit() {
+        var editorDiv = document.getElementById('editor-div');
+        var noaccessDiv = document.getElementById('noaccess-div');
+        var date_obj = new Date();
+        var time_stamp = date_obj.getTime();
+        gapi.client.sheets.spreadsheets.values.update({
+            spreadsheetId: '{{ site.google_sheet_id }}',
+            range: "'Authentication Test'!A1",
+            valueInputOption: "RAW",
+            resource: {
+                values: [[time_stamp]]
+            }
+        }).then(function(response) {
+            console.log(JSON.stringify(response));
+            editorDiv.style.display = 'inline';  
+            allowed_to_edit = true;          
+        }, function(response) {
+            console.log(JSON.stringify(response));
+            noaccessDiv.style.display = 'inline';
+        });
+    }
+
+    function update_edit_time() {
+        var date_obj = new Date();
+        var time_stamp = date_obj.getTime();
+        gapi.client.sheets.spreadsheets.values.update({
+            spreadsheetId: '{{ site.google_sheet_id }}',
+            range: "'Last Edit Time Stamp'!A1",
+            valueInputOption: "RAW",
+            resource: {
+                values: [[time_stamp]]
+            }
+        }).then();
+    }
+
+
+</script>
+
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+<script src="{{ url }}/assets/tinymce/tinymce.min.js"></script>
+
+
+<script>
+	function load_tinymce_editor() {
+	    if (Foundation.utils.is_small_only()) {
+            tinymce.init({
+                selector: 'textarea.page_editor',
+                height: 250,
+                plugins: [
+                    'autolink lists save fullscreen paste textpattern'
+                ],
+                toolbar: 'insertfile save undo | fullscreen | bold italic | bullist',
+                menubar: false,
+                save_onsavecallback: function () {
+                    save_editor_content();
+                }
+            });
+        }	
+	    if (Foundation.utils.is_medium_up()) {
+            tinymce.init({
+                selector: 'textarea.page_editor',
+                height: 250,
+                plugins: [
+                    'advlist autolink lists link image',
+                    'fullscreen',
+                    'media contextmenu paste code textpattern save'
+                ],
+                toolbar: 'insertfile save undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                save_onsavecallback: function () {
+                    save_editor_content();
+                }
+            });
+        }
+	}
+	
+	var current_editing_content = null;
+	function trigger_editor(classList) {
+	    var double_clicked_label = null;
+	    $.each(classList, function(index, item) {
+            if (content_html_dict[item] != undefined) {
+                double_clicked_label = item;
+                return false;
+            }
+        });
+	    
+	    if ($('.editor').is(':hidden')) {
+	        current_editing_content = double_clicked_label;
+	        $(tinymce.get('tinemce_page_editor').getBody()).html(
+	            $('.' + current_editing_content).html()
+	        );
+	        $('.editor').slideToggle();
+	    } else {
+	        save_editor_content();
+	        if (current_editing_content == double_clicked_label) {
+	            current_editing_content = null;
+	            $('.editor').slideToggle();
+	        } else {
+    	        current_editing_content = double_clicked_label;
+	            $(tinymce.get('tinemce_page_editor').getBody()).html(
+	                $('.' + current_editing_content).html()
+	            );
+	        }
+	    }
+	}
+	
+	function close_current_editor(event) {
+	    if ($('.editor').is(':visible')) {
+	        save_editor_content();
+	        $('.editor').slideToggle();	    
+	    }
+	}
+	
+	function save_editor_content() {
+	    if (allowed_to_edit) {
+            var content = $(tinymce.get('tinemce_page_editor').getBody()).html();
+            $('.' + current_editing_content).html(content);
+            load_plugins_and_rebind_links_for_single_element($('.' + current_editing_content));
+            update_google_sheet(content);
+            update_edit_time();
+        }
+	}
+	
+</script>
+
+<script>
+	$(document).ready(function(){
+	    load_tinymce_editor();
+	});
+</script>
+

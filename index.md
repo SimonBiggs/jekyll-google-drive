@@ -4,7 +4,7 @@ header:
   image_fullwidth: unsplash-outback.jpg
 permalink: /index.html
 homepage: true
-mediaplayer: true
+# mediaplayer: true
 # breadcrumb: true -- re enable this once these are implimented in sheets
 googlesheetpull: true
 googlesheetlayout: home
@@ -13,6 +13,11 @@ googlesheetlayout: home
 <div class="row t30 b30">
     <form>
         <div class="editor large-12 columns" style="display: none">
+            <div class="large-12 columns">
+                <button type="button" style="width:100%" class="note button radius" id="closeeditor-button" onclick="close_current_editor(event)">
+                    Close editor
+                </button>
+            </div>
             <div id="authorize-div" style="display: none">
                 <div class="large-12 columns">
                     <button type="button" style="width:100%" class="note button radius" id="authorize-button" onclick="handleAuthClick(event)">

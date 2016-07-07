@@ -1,3 +1,8 @@
+
+
+
+
+
 <!--
 
     Dynamically builds and edits website based upon a Google Spreadsheet.
@@ -19,136 +24,51 @@
 
 -->
 
-<link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
-<!-- <script src="{{ url }}/assets/showdown/showdown.min.js"></script> -->
-<script src="{{ url }}/assets/tinymce/tinymce.min.js"></script>
-
-<script type="text/javascript">
-  // Your Client ID can be retrieved from your project in the Google
-  // Developer Console, https://console.developers.google.com
-  var CLIENT_ID = '432922101143-oljj6fs0nd08eebsspkhvdhks372lk0d.apps.googleusercontent.com';
-
-  var SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
-
-  /**
-   * Check if current user has authorized this application.
-   */
-  function checkAuth() {
-    gapi.auth.authorize(
-      {
-        'client_id': CLIENT_ID,
-        'scope': SCOPES.join(' '),
-        'immediate': true
-      }, handleAuthResult);
-  }
-
-  /**
-   * Handle response from authorization server.
-   *
-   * @param {Object} authResult Authorization result.
-   */
-    function handleAuthResult(authResult) {
-        var authorizeDiv = document.getElementById('authorize-div');
-        if (authResult && !authResult.error) {
-            // Hide auth UI, then load client library.
-            authorizeDiv.style.display = 'none';
-            loadSheetsApi();
-        } else {
-            authorizeDiv.style.display = 'inline';
+<script>
+	var switched=false;
+    function update_responsive_tables() {
+        if(($(window).width()<767)&&!switched){
+            switched=true;
+            $("table.responsive").each(function(i,element){
+                splitTable($(element));
+            });
+        return true;
         }
-    }
-
-  /**
-   * Initiate auth flow in response to user clicking authorize button.
-   *
-   * @param {Event} event Button click event.
-   */
-  function handleAuthClick(event) {
-    gapi.auth.authorize(
-      {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-      handleAuthResult);
-    return false;
-  }
-
-  /**
-   * Load Sheets API client library.
-   */
-    function loadSheetsApi() {
-        var discoveryUrl =
-        'https://sheets.googleapis.com/$discovery/rest?version=v4';
-        gapi.client.load(discoveryUrl).then(function () {
-            check_for_ability_to_edit();
-        });
-    }
-
-  /**
-   * Print the names and majors of students in a sample spreadsheet:
-   * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-   */
-    function update_google_sheet(content) {
-        var range_value = content_reference_dict[current_editing_content];
+        else if(switched&&($(window).width()>767)){
+            switched=false;
+            $("table.responsive").each(function(i,element){
+                unsplitTable($(element));
+            });
+        }
+    };   
         
-        gapi.client.sheets.spreadsheets.values.update({
-            spreadsheetId: '{{ site.google_sheet_id }}',
-            range: range_value,
-            valueInputOption: "RAW",
-            resource: {
-                values: [[content]]
-            }
-        }).then();
+    function splitTable(original) {
+        original.wrap("<div class='table-wrapper' />");
+        var copy=original.clone();
+        copy.find(
+            "td:not(:first-child), th:not(:first-child)")
+            .css("display","none");
+        copy.removeClass("responsive");
+        original.closest(".table-wrapper").append(copy);
+        copy.wrap("<div class='pinned' />");
+        original.wrap("<div class='scrollable' />");
+        }
+        
+    function unsplitTable(original) {
+        original.closest(".table-wrapper").find(".pinned").remove();
+        original.unwrap();
+        original.unwrap();
     }
-    
-    function check_for_ability_to_edit() {
-        var editorDiv = document.getElementById('editor-div');
-        var noaccessDiv = document.getElementById('noaccess-div');
-        var date_obj = new Date();
-        var time_stamp = date_obj.getTime();
-        gapi.client.sheets.spreadsheets.values.update({
-            spreadsheetId: '{{ site.google_sheet_id }}',
-            range: "'Authentication Test'!A1",
-            valueInputOption: "RAW",
-            resource: {
-                values: [[time_stamp]]
-            }
-        }).then(function(response) {
-            console.log(JSON.stringify(response));
-            editorDiv.style.display = 'inline';            
-        }, function(response) {
-            console.log(JSON.stringify(response));
-            noaccessDiv.style.display = 'inline';
-        });
-    }
-
-    function update_edit_time() {
-        var date_obj = new Date();
-        var time_stamp = date_obj.getTime();
-        gapi.client.sheets.spreadsheets.values.update({
-            spreadsheetId: '{{ site.google_sheet_id }}',
-            range: "'Last Edit Time Stamp'!A1",
-            valueInputOption: "RAW",
-            resource: {
-                values: [[time_stamp]]
-            }
-        }).then();
-    }
-
-
-</script>
-
-<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
-
-<script language="javascript" type="text/javascript">
-  function resizeIframe(obj) {
-    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-  }
+	
+	$(window).bind("resize",update_responsive_tables);
 </script>
 
 
+<link rel="stylesheet" href="{{ url }}/assets/mediaelement_js/mediaelementplayer.min.css">
+<link rel="stylesheet" href="{{ url }}/assets/responsive_tables/responsive-tables.css">
+<script src="http://browserstate.github.io/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 
 <script type="text/javascript">
-
-    // var converter = new showdown.Converter();
-
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
             sURLVariables = sPageURL.split('&'),
@@ -200,7 +120,8 @@
 	
 	var obj_class_list = [];
 	var content_html_dict = {};
-	var content_reference_dict = {};	
+	var content_reference_dict = {};
+	var initial_load = true;	
 	function load_content_data(json) {
 	    obj_class_list = [];
 	    content_html_dict = {};	
@@ -229,6 +150,13 @@
 			content_html_dict[obj_class] = content_html_list[index];
 			content_reference_dict[obj_class] = content_reference_list[index];
 		});
+		
+		if (initial_load = true) {
+		    initial_load = false;
+    	    initial_rebind_of_links();
+            new_googlesheet_page();	    
+            pull_edit_timestamp();        	
+		}
 	}
 	
 	var page_label = null
@@ -279,38 +207,155 @@
         }); 
 	}
 	
-	function load_tinymce_editor() {
-	    if (Foundation.utils.is_small_only()) {
-            tinymce.init({
-                selector: 'textarea.page_editor',
-                height: 250,
-                plugins: [
-                    'autolink lists save fullscreen paste textpattern'
-                ],
-                toolbar: 'insertfile save undo | fullscreen | bold italic | bullist',
-                menubar: false,
-                save_onsavecallback: function () {
-                    save_editor_content();
+	function create_tablefilter() {
+	    $(".tablefilterinput").keyup(function () {
+            //split the current value of searchInput
+            var data = this.value.toUpperCase().split(" ");
+            //create a jquery object of the rows
+            var jo = $(".filtertablebody").find("tr");
+            if (this.value == "") {
+                jo.show();
+                return;
+            }
+            //hide all the rows
+            jo.hide();
+
+            //Recusively filter the jquery object to get results.
+            jo.filter(function (i, v) {
+                var $t = $(this);
+                for (var d = 0; d < data.length; ++d) {
+                    if ($t.text().toUpperCase().indexOf(data[d]) > -1) {
+                        return true;
+                    }
                 }
+                return false;
+            })
+            //show the rows that match.
+            .show();
+        }).focus(function () {
+            this.value = "";
+            $(this).css({
+                "color": "black"
             });
-        }	
-	    if (Foundation.utils.is_medium_up()) {
-            tinymce.init({
-                selector: 'textarea.page_editor',
-                height: 250,
-                plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table contextmenu paste code textpattern save'
-                ],
-                toolbar: 'insertfile save insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                save_onsavecallback: function () {
-                    save_editor_content();
-                }
-            });
+            $(this).unbind('focus');
+        }).css({
+            "color": "#C0C0C0"
+        });
+	
+	}	
+	
+	function load_plugins_and_rebind_links_for_single_element(parent) {
+        if (parent.find('.accordion').length > 0) {
+            $(document).foundation('accordion');
+        } 
+        if (parent.find('table.responsive').length > 0) {
+            switched=false;
+            update_responsive_tables();
         }
+        if (parent.find('table').length > 0) {
+            load_tablesort();
+        }
+        if (parent.find('video,audio').length > 0) {
+            load_mediaelements();
+        }
+        if (parent.find(".tablefilterinput").length > 0) {
+            create_tablefilter();
+        } 
+        
+        parent.find('a[href*="page="]').not('a[href*="#"]')
+            .click(function(event) {
+            event.preventDefault();
+            var url = $(this).attr("href");
+            page_label = url.split("page=")[1].split("&")[0];
+            History.pushState(null, return_page_title(), url);
+        });
+	}
+
+	
+	function set_up_editable() {
+	    $('.editable').dblclick(function() {
+	        var classList = $(this).attr('class').split(/\s+/);
+	        trigger_editor(classList);
+	    });
 	}
 	
+	function load_relevant_plugins() {
+	    if ($('.accordion').length > 0) {
+	        $(document).foundation('accordion');
+	    } 
+	    if ($('table.responsive').length > 0) {
+	        switched=false;
+	        update_responsive_tables();
+	    }
+	    if ($('table').length > 0) {
+            load_tablesort();
+        }
+        if ($('video,audio').length > 0) {
+            load_mediaelements();
+        }
+        if ($(".tablefilterinput").length > 0) {
+            create_tablefilter();
+        } 
+        if ($('.editable').length > 0) {
+            set_up_editable();
+        }
+        
+	}
+	
+	function close_editor() {
+	    if ($('.editor').is(':visible')) {
+	        save_editor_content();
+	        current_editing_content = null;
+	        $('.editor').toggle();
+	    }
+	}
+	
+	function new_googlesheet_page() {
+        close_editor();
+	    write_layout();
+	    write_content();
+	    load_relevant_plugins();
+	    rebind_only_new_links();
+	}
+	
+	function initial_rebind_of_links() {
+		$('a[href*="page="].dropdown-link')
+		    .not('a[href*="#"]')
+		    .click(function(event) {
+		        if (    matchMedia(Foundation.media_queries.small).matches && 
+		                matchMedia(Foundation.media_queries.medium).matches &&
+                        matchMedia(Foundation.media_queries.large).matches) {
+                    event.preventDefault();
+                    var url = $(this).attr("href");
+                    page_label = url.split("page=")[1].split("&")[0];
+                    History.pushState(null, return_page_title(), url);
+		        }      
+        });
+		$('a[href*="page="]').not(".dropdown-link")
+		    .not('a[href*="#"]')
+		    .click(function(event) {
+                event.preventDefault();
+                var url = $(this).attr("href");
+                page_label = url.split("page=")[1].split("&")[0];
+                History.pushState(null, return_page_title(), url);                 
+        });
+	}
+	
+	function rebind_only_new_links() {
+		$('.google-sheet-layout a[href*="page="]')
+		    .not('a[href*="#"]')
+		    .click(function(event) {
+	        event.preventDefault();
+            var url = $(this).attr("href");
+            page_label = url.split("page=")[1].split("&")[0];
+            History.pushState(null, return_page_title(), url);
+	    });
+	}
+
+
+</script>
+
+<script>
 	function time_difference(then, now) {
 	    var diffMs = (now - then);
 	    var diffDays = Math.floor(diffMs / 86400000);
@@ -354,7 +399,7 @@
 		
 		if (now - edit_timestamp < wait_till_update) {
 		    if ($( ".editor" ).is(":hidden")) {
-		        check_for_content_or_layout_change();
+		        // check_for_content_or_layout_change();
 		    }
 		}
 		if (now - edit_timestamp < 60 * 1000) {
@@ -370,7 +415,7 @@
 		    wait_till_update = 5 * 60 * 1000;
 		}
 		
-		setTimeout(pull_edit_timestamp, wait_till_update);
+		// setTimeout(pull_edit_timestamp, wait_till_update);
 	}
 	
 	function pull_edit_timestamp() {
@@ -436,71 +481,7 @@
     function update_different_google_sheet_content() {
             write_only_different_content_and_update();
     }
-	
-	function create_tablefilter() {
-	    $(".tablefilterinput").keyup(function () {
-            //split the current value of searchInput
-            var data = this.value.toUpperCase().split(" ");
-            //create a jquery object of the rows
-            var jo = $(".filtertablebody").find("tr");
-            if (this.value == "") {
-                jo.show();
-                return;
-            }
-            //hide all the rows
-            jo.hide();
 
-            //Recusively filter the jquery object to get results.
-            jo.filter(function (i, v) {
-                var $t = $(this);
-                for (var d = 0; d < data.length; ++d) {
-                    if ($t.text().toUpperCase().indexOf(data[d]) > -1) {
-                        return true;
-                    }
-                }
-                return false;
-            })
-            //show the rows that match.
-            .show();
-        }).focus(function () {
-            this.value = "";
-            $(this).css({
-                "color": "black"
-            });
-            $(this).unbind('focus');
-        }).css({
-            "color": "#C0C0C0"
-        });
-	
-	}	
-	
-	function load_plugins_and_rebind_links_for_single_element(parent) {
-        if (parent.find('.accordion').length > 0) {
-            $(document).foundation('accordion');
-        } 
-        if (parent.find('table.responsive').length > 0) {
-            switched=false;
-            update_responsive_tables();
-        }
-        if (parent.find('table').length > 0) {
-            load_tablesort();
-        }
-        if (parent.find('video,audio').length > 0) {
-            load_mediaelements();
-        }
-        if (parent.find(".tablefilterinput").length > 0) {
-            create_tablefilter();
-        } 
-        
-        parent.find('a[href*="page="]').not('a[href*="#"]')
-            .click(function(event) {
-            event.preventDefault();
-            var url = $(this).attr("href");
-            page_label = url.split("page=")[1].split("&")[0];
-            History.pushState(null, return_page_title(), url);
-        });
-	}
-	
 	function write_only_different_content_and_update() {
 	    $.each(obj_class_list, function ( index, obj_class ) {
 			var parent = $("." + obj_class);
@@ -510,128 +491,14 @@
 			}
 		});
 	}
-	
-	var current_editing_content = null;
-	function trigger_editor(classList) {
-	    var double_clicked_label = null;
-	    $.each(classList, function(index, item) {
-            if (content_html_dict[item] != undefined) {
-                double_clicked_label = item;
-                return false;
-            }
-        });
-	    
-	    if ($('.editor').is(':hidden')) {
-	        current_editing_content = double_clicked_label;
-	        $(tinymce.get('tinemce_page_editor').getBody()).html(
-	            $('.' + current_editing_content).html()
-	        );
-	        $('.editor').slideToggle();
-	    } else {
-	        save_editor_content();
-	        if (current_editing_content == double_clicked_label) {
-	            current_editing_content = null;
-	            $('.editor').slideToggle();
-	        } else {
-    	        current_editing_content = double_clicked_label;
-	            $(tinymce.get('tinemce_page_editor').getBody()).html(
-	                $('.' + current_editing_content).html()
-	            );
-	        }
-	    }
-	}
-	
-	function save_editor_content() {
-        var content = $(tinymce.get('tinemce_page_editor').getBody()).html();
-        $('.' + current_editing_content).html(content);
-        load_plugins_and_rebind_links_for_single_element($('.' + current_editing_content));
-        update_google_sheet(content);
-        update_edit_time();
-	}
-	
-	function set_up_editable() {
-	    $('.editable').dblclick(function() {
-	        var classList = $(this).attr('class').split(/\s+/);
-	        trigger_editor(classList);
-	    });
-	}
-	
-	function load_relevant_plugins() {
-	    if ($('.accordion').length > 0) {
-	        $(document).foundation('accordion');
-	    } 
-	    if ($('table.responsive').length > 0) {
-	        switched=false;
-	        update_responsive_tables();
-	    }
-	    if ($('table').length > 0) {
-            load_tablesort();
-        }
-        if ($('video,audio').length > 0) {
-            load_mediaelements();
-        }
-        if ($(".tablefilterinput").length > 0) {
-            create_tablefilter();
-        } 
-        if ($('.editable').length > 0) {
-            set_up_editable();
-        }
-        
-	}
-	
-	function close_editor() {
-	    if ($('.editor').is(':visible')) {
-	        save_editor_content();
-	        current_editing_content = null;
-	        $('.editor').toggle();
-	    }
-	}
-	
-	function new_googlesheet_page() {
-        close_editor();
-	    write_layout();
-	    write_content();
-	    load_relevant_plugins();
-	    rebind_only_new_links();
-	}
-	
-	var switched=false;
-    function update_responsive_tables() {
-        if(($(window).width()<767)&&!switched){
-            switched=true;
-            $("table.responsive").each(function(i,element){
-                splitTable($(element));
-            });
-        return true;
-        }
-        else if(switched&&($(window).width()>767)){
-            switched=false;
-            $("table.responsive").each(function(i,element){
-                unsplitTable($(element));
-            });
-        }
-    };   
-        
-    function splitTable(original) {
-        original.wrap("<div class='table-wrapper' />");
-        var copy=original.clone();
-        copy.find(
-            "td:not(:first-child), th:not(:first-child)")
-            .css("display","none");
-        copy.removeClass("responsive");
-        original.closest(".table-wrapper").append(copy);
-        copy.wrap("<div class='pinned' />");
-        original.wrap("<div class='scrollable' />");
-        }
-        
-    function unsplitTable(original) {
-        original.closest(".table-wrapper").find(".pinned").remove();
-        original.unwrap();
-        original.unwrap();
-    }
-	
-	$(window).bind("resize",update_responsive_tables);
-	
+</script>
+
+<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_layout_page_number }}/public/values?alt=json-in-script&callback=load_layout_data"></script>
+<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_contents_page_number }}/public/values?alt=json-in-script&callback=load_content_data"></script>
+
+
+
+<script>
 	function close_navigation() {
         if ( $(".top-bar").hasClass( "expanded" ) ) {
             Foundation.libs.topbar.toggle();
@@ -639,54 +506,16 @@
         $(".hover").removeClass("hover");
         Foundation.libs.dropdown.closeall();  
 	}
-	
-	function initial_rebind_of_links() {
-		$('a[href*="page="].dropdown-link')
-		    .not('a[href*="#"]')
-		    .click(function(event) {
-		        if (    matchMedia(Foundation.media_queries.small).matches && 
-		                matchMedia(Foundation.media_queries.medium).matches &&
-                        matchMedia(Foundation.media_queries.large).matches) {
-                    event.preventDefault();
-                    var url = $(this).attr("href");
-                    page_label = url.split("page=")[1].split("&")[0];
-                    History.pushState(null, return_page_title(), url);
-		        }      
-        });
-		$('a[href*="page="]').not(".dropdown-link")
-		    .not('a[href*="#"]')
-		    .click(function(event) {
-                event.preventDefault();
-                var url = $(this).attr("href");
-                page_label = url.split("page=")[1].split("&")[0];
-                History.pushState(null, return_page_title(), url);                 
-        });
-	}
-	
-	function rebind_only_new_links() {
-		$('.google-sheet-layout a[href*="page="]')
-		    .not('a[href*="#"]')
-		    .click(function(event) {
-	        event.preventDefault();
-            var url = $(this).attr("href");
-            page_label = url.split("page=")[1].split("&")[0];
-            History.pushState(null, return_page_title(), url);
-	    });
-	}
-	
-	$(document).ready(function(){
-	    initial_rebind_of_links();
-	    new_googlesheet_page();	    
-	    pull_edit_timestamp();
-	    load_tinymce_editor();
+</script>
 
+<script>
+    $(document).ready(function(){	
         History.Adapter.bind(window,'statechange',function(){
             new_googlesheet_page();
             window.scrollTo(0,0);
-            close_navigation();            
-		});
-	});
+            close_navigation();
+        });
+    });
 </script>
-<script src="http://browserstate.github.io/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
-<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_layout_page_number }}/public/values?alt=json-in-script&callback=load_layout_data"></script>
-<script src="https://spreadsheets.google.com/feeds/cells/{{ site.google_sheet_id }}/{{ site.google_sheet_contents_page_number }}/public/values?alt=json-in-script&callback=load_content_data"></script>
+
+
